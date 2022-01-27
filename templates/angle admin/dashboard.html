@@ -1,0 +1,102 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+
+{% block title %}
+   Welcome {{request.user.getName}}
+{% endblock title %}
+   
+
+
+{% block content %}
+
+<!-- Main section-->
+<section class="section-container">
+   <!-- Page content-->
+   <div class="content-wrapper">
+      <div class="content-heading">
+         <div>Dashboard<small data-localize="dashboard.WELCOME"></small></div>
+      </div><!-- START cards box-->
+      <div class="row">
+         <div class="col-xl-3 col-md-6">
+            <!-- START card-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+               <div class="col-4 d-flex align-items-center bg-primary-dark justify-content-center rounded-left"><em class="fas fa-users fa-3x"></em></div>
+               <div class="col-8 py-3 bg-primary rounded-right">
+                  <div class="h2 mt-0">{{agents_count}}</div>
+                  <div class="text-uppercase">Active Agents Count</div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-3 col-md-6">
+            <!-- START card-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+               <div class="col-4 d-flex align-items-center bg-purple-dark justify-content-center rounded-left"><i class="fas fa-id-card fa-3x"></i></div>
+               <div class="col-8 py-2 bg-purple rounded-right">
+                  <div class="h2 mt-0">{{supervisor_count}}</div>
+                  <div class="text-uppercase">Active Supervisors Count</div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START card-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+               <div class="col-4 d-flex align-items-center bg-warning-dark justify-content-center rounded-left"><em class="fas fa-fist-raised fa-3x"></em></div>
+               <div class="col-8 py-3 bg-warning rounded-right">
+               <div class="h2 mt-0">{{request.user.getRaisedDispute}}</div>
+                  <div class="text-uppercase">Active Disputes Raised</div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START card-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+               <div class="col-4 d-flex align-items-center bg-info-dark justify-content-center rounded-left"><em class="fas fa-clipboard-check fa-3x"></em></div>
+               <div class="col-8 py-3 bg-info rounded-right">
+               <div class="h2 mt-0">{{request.user.getApprovedDispute}}</div>
+                  <div class="text-uppercase">Disputes Addressed</div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START card-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+               <div class="col-4 d-flex align-items-center bg-danger-dark justify-content-center rounded-left"><em class="fas fa-trash fa-3x"></em></div>
+               <div class="col-8 py-3 bg-danger rounded-right">
+               <div class="h2 mt-0">{{request.user.getDeclinedDispute}}</div>
+                  <div class="text-uppercase">Disputes Declined</div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START card-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+               <div class="col-4 d-flex align-items-center bg-green-dark justify-content-center rounded-left"><em class="fas fa-check-double fa-3x"></em></div>
+               <div class="col-8 py-3 bg-green rounded-right">
+               <div class="h2 mt-0">{{request.user.getApproved}}</div>
+                  <div class="text-uppercase">Disputes Approved</div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START date widget-->
+            <div class="card flex-row align-items-center align-items-stretch border-0">
+               <div class="col-4 d-flex align-items-center bg-green justify-content-center rounded-left">
+                  <div class="text-center">
+                     <!-- See formats: https://docs.angularjs.org/api/ng/filter/date-->
+                     <div class="text-sm" data-now="" data-format="MMMM"></div><br>
+                     <div class="h2 mt-0" data-now="" data-format="D"></div>
+                  </div>
+               </div>
+               <div class="col-8 py-3 rounded-right">
+                  <div class="text-uppercase" data-now="" data-format="dddd"></div><br>
+                  <div class="h2 mt-0" data-now="" data-format="h:mm"></div>
+                  <div class="text-muted text-sm" data-now="" data-format="a"></div>
+               </div>
+            </div><!-- END date widget-->
+         </div>
+      </div><!-- END cards box-->
+   </div>
+</section><!-- Page footer-->
+
+{% endblock content %}

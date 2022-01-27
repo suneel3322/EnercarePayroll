@@ -1,0 +1,117 @@
+{% extends 'new_base.html' %}
+{% load static %}
+{% load remove_dot %}
+
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+
+
+{% block content %}
+<style>
+    .modal-backdrop {
+        /* bug fix - no overlay */
+        display: none;
+    }
+</style>
+<!-- Main section-->
+<section class="section-container">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <div class="content-heading">
+            <div>Addressed Dipsutes</div>
+        </div>
+        <!-- DATATABLE DEMO 1-->
+        <div class="card">
+            <div class="card-header">
+                <div class="row mx-3">
+                    <p class="text-primary m-0 font-weight-bold">Addressed Dipsute</p>
+                </div>
+            </div>
+            <div class="card-body" style="width: auto;">
+                <table class="table dataTable my-0" id="dataTable">
+                    <thead class="text-center">
+                        <tr>
+                            <th rowspan="2" colspan="1">Date</th>
+                            <th rowspan="2" colspan="1">Raised By</th>
+                            <th rowspan="2" colspan="1">Disputed Time <br> (min)</th>
+                            <th rowspan="2" colspan="1">Approved Time <br> By Supervisor</th>
+                            <th rowspan="2" colspan="1">Dispute Status</th>
+                            <th rowspan="2" colspan="1">Agent's Comment</th>
+                            <th rowspan="2" colspan="1">Supervisor Comments</th>
+                            <th rowspan="2" colspan="1">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        {% for it in res %}
+                        <tr>
+                            <td>{{it.dispute_date}}</td>
+                            <td>{{it.employee|remove_dot}}</td>
+                            <td>{{it.dispute_time|default:'N/A'}}</td>
+                            <td>{{it.approve_time|default:'N/A'}}</td>
+                            <td>{{it.status}}</td>
+                            <td>{{it.emp_comment|default:'N/A'}}</td>
+                            <td>{{it.comment}}</td>
+                            <td><a href="#" class="btn btn-outline-info">Edit</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if res.has_other_pages %}
+                <ul class="pagination">
+                    {% if res.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">begin</span>
+                        </a>
+                    </li> {% endif %}
+
+                    {% for n in res.paginator.page_range %}
+                    {% if res.number == n %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+                    </li>
+                    {% elif n > res.number|add:'-3' and n < res.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if res.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ res.paginator.num_pages }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">end</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock content %}
+
+{% block customJs %}
+<script>
+
+    function filter(){
+        fdate = document.getElementById('fdate').value;
+        tdate = document.getElementById('tdate').value;
+        filterBtn = document.getElementById('Filter');
+        {% if 'q=' in request.get_full_path %}
+            filterBtn.href = "{{request.get_full_path}}"+"&fdate="+fdate+"&tdate="+tdate;
+        {% else %}
+            alert("Please search first!");
+            return false;
+         {% endif %}
+        filterBtn.click();
+    };
+
+</script>      
+{% endblock customJs %}
+      

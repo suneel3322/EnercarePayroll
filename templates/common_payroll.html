@@ -1,0 +1,161 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{user}}|Payrolls
+{% endblock title %}
+
+
+{% block content %}
+<section class="section-container">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <div class="content-heading">
+            <div>Payroll Logs<small>{{user}}</small></div>
+        </div>
+        <!-- DATATABLE DEMO 1-->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Payroll Logs</div>
+            </div>
+            <div class="card-body" style="width: auto;">
+                <div class="table table-sm" style="width: auto;">
+                    <div id="data_tables_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="data_tables_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-sm no-footer" id="data_tables" role="grid"
+                                                aria-describedby="data_tables_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1" style="width: 42.2969px;"
+                                                            aria-label="ID: activate to sort column descending"
+                                                            aria-sort="ascending">Date
+                                                        </th>
+                                                        <th class="no-wrap sorting" tabindex="0"
+                                                            aria-controls="data_tables" rowspan="2" colspan="1"
+                                                            style="width: 263.297px;"
+                                                            aria-label="Employee: activate to sort column ascending">
+                                                            Login Time<br>
+                                                            (Hrs)
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1" style="width: 195px;"
+                                                            aria-label="Scorecard: activate to sort column ascending">
+                                                            Logout
+                                                            Time<br> (Hrs)
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1" style="width: 195px;"
+                                                            aria-label="Group &amp;amp; Ref.: activate to sort column ascending">
+                                                            Total Login Time<br> (Hrs)
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1" style="width: 195px;"
+                                                            aria-label="Group &amp;amp; Ref.: activate to sort column ascending">
+                                                            Working Time<br> (Hrs)
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1" style="width: 104.875px;"
+                                                            aria-label="Evaluator: activate to sort column ascending">
+                                                            NotReady/ Break/ Lunch<br> (Hrs)
+                                                        </th>
+                                                        <th style="text-align: center; width: 81.0469px;"
+                                                            class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1"
+                                                            aria-label="Score: activate to sort column ascending"
+                                                            align="center">Coaching/ Training<br>(Hrs)
+                                                        </th>
+                                                        <th style="text-align: center; width: 81.0469px;"
+                                                            class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1"
+                                                            aria-label="Score: activate to sort column ascending"
+                                                            align="center">Payroll Time <br>(Hrs)
+                                                        </th>
+                                                        <th style="text-align: center; width: 81.0469px;"
+                                                            class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1"
+                                                            aria-label="Score: activate to sort column ascending"
+                                                            align="center">Status
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!--
+                                                For Performance Reasons Content will be served to data tables as JSON
+                                            -->
+                                                    {% for item in res %}
+                                                    <tr>
+                                                        <td>{{item.startdate}}</td>
+                                                        <td>{{item.login_time}}</td>
+                                                        <td>{{item.logout_time}}</td>
+                                                        <td>{{item.total_login_time}}</td>
+                                                        <td>{{item.working_time}}</td>
+                                                        <td>{{item.lunch_break_not_readytime}}</td>
+                                                        <td>{{item.coaching_training_time}}</td>
+                                                        <td>{{item.payroll}}</td>
+                                                        <td>
+                                                            <h4>
+                                                                <span class="
+                                                        {% if item.status == 'NEW' %}
+                                                        badge badge-info badge-pill
+                                                        {% elif item.status == 'YES' %}
+                                                        badge badge-success badge-pill
+                                                        {% elif item.status == 'NO' %}
+                                                        badge badge-danger badge-pill
+                                                        {% else %}
+                                                        badge badge-warning badge-pill
+                                                        {% endif %}
+                                                        ">{{item.status}}</span>
+                                                            </h4>
+                                                        </td>
+                                                    </tr>
+
+                                                    {% endfor %}
+                                                    <tr class="odd">
+                                                        <td valign="top" colspan="9" class="dataTables_empty"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if res.has_other_pages %}
+                <ul class="pagination">
+                    {% if res.has_previous %}
+                    <li class="paginate_button page-item"><a class="page-link"
+                            href="?page={{ res.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                    <li class="paginate_button page-item disabled"><a class="page-link" href="#"><span>&laquo;</span></a></li>
+                    {% endif %}
+                    {% for i in res.paginator.page_range %}
+                    {% if res.number == i %}
+                    <li class="paginate_button page-item active"><span class="page-link">{{ i }} <span
+                                class="sr-only">(current)</span></span></li>
+                    {% else %}
+                    <li class="paginate_button page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if res.has_next %}
+                    <li class="paginate_button page-item"><a class="page-link"
+                            href="?page={{ res.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                    <li class="paginate_button page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock content %}

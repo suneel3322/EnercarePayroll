@@ -1,0 +1,1014 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>core.models package &#8212; Payroll Tool 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core.om_view package" href="core.om_view.html" />
+    <link rel="prev" title="core.migrations package" href="core.migrations.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="core-models-package">
+<h1>core.models package<a class="headerlink" href="#core-models-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-core.models.Dispute">
+<span id="core-models-dispute-module"></span><h2>core.models.Dispute module<a class="headerlink" href="#module-core.models.Dispute" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.Dispute.</span></span><span class="sig-name descname"><span class="pre">Dispute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emp_comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispute_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approve_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supervisor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">employee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispute_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_at</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payroll</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approved_by_sup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approved_by_oper_man</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approved_by_finan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sup_approve_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oper_man_approve_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finan_approve_date</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Dispute.Dispute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.approve_time">
+<span class="sig-name descname"><span class="pre">approve_time</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.approve_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.approved_by_finan">
+<span class="sig-name descname"><span class="pre">approved_by_finan</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.approved_by_finan" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.approved_by_oper_man">
+<span class="sig-name descname"><span class="pre">approved_by_oper_man</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.approved_by_oper_man" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.approved_by_sup">
+<span class="sig-name descname"><span class="pre">approved_by_sup</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.approved_by_sup" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.comment">
+<span class="sig-name descname"><span class="pre">comment</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.created_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.dispute_date">
+<span class="sig-name descname"><span class="pre">dispute_date</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.dispute_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.dispute_time">
+<span class="sig-name descname"><span class="pre">dispute_time</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.dispute_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.emp_comment">
+<span class="sig-name descname"><span class="pre">emp_comment</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.emp_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.employee">
+<span class="sig-name descname"><span class="pre">employee</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.employee" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.finan_approve_date">
+<span class="sig-name descname"><span class="pre">finan_approve_date</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.finan_approve_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.get_next_by_created_at">
+<span class="sig-name descname"><span class="pre">get_next_by_created_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">created_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Dispute.Dispute.get_next_by_created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.get_previous_by_created_at">
+<span class="sig-name descname"><span class="pre">get_previous_by_created_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">created_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Dispute.Dispute.get_previous_by_created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.Dispute.Dispute.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.oper_man_approve_date">
+<span class="sig-name descname"><span class="pre">oper_man_approve_date</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.oper_man_approve_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.payroll">
+<span class="sig-name descname"><span class="pre">payroll</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.payroll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.payroll_id">
+<span class="sig-name descname"><span class="pre">payroll_id</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.payroll_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.status">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.sup_approve_date">
+<span class="sig-name descname"><span class="pre">sup_approve_date</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.sup_approve_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.supervisor">
+<span class="sig-name descname"><span class="pre">supervisor</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.supervisor" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Dispute.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><a class="headerlink" href="#core.models.Dispute.Dispute.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.Dispute.</span></span><span class="sig-name descname"><span class="pre">Payroll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startdate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">login_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">login_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logout_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_login_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">working_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lunch_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">break_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_ready_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coaching_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payroll</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_downtime_approved</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_om_approve_downtime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_approved</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Dispute.Payroll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.break_time">
+<span class="sig-name descname"><span class="pre">break_time</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.break_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.client">
+<span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.client" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.coaching_time">
+<span class="sig-name descname"><span class="pre">coaching_time</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.coaching_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.convertLoginId">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convertLoginId</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.convertLoginId" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.dispute_set">
+<span class="sig-name descname"><span class="pre">dispute_set</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.dispute_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.getCoachingTrainingTimeInHours">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getCoachingTrainingTimeInHours</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.getCoachingTrainingTimeInHours" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.getLoginTimeInHours">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getLoginTimeInHours</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.getLoginTimeInHours" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.getLogoutTimeInHours">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getLogoutTimeInHours</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.getLogoutTimeInHours" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.getLunchBreakNotReadyTimeInHours">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getLunchBreakNotReadyTimeInHours</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.getLunchBreakNotReadyTimeInHours" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.getPayrollTimeInHours">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getPayrollTimeInHours</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.getPayrollTimeInHours" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.getTotalLoginTimeInHours">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getTotalLoginTimeInHours</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.getTotalLoginTimeInHours" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.getWorkingTimeInHours">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getWorkingTimeInHours</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.getWorkingTimeInHours" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.is_approved">
+<span class="sig-name descname"><span class="pre">is_approved</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.is_approved" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.is_downtime_approved">
+<span class="sig-name descname"><span class="pre">is_downtime_approved</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.is_downtime_approved" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.is_om_approve_downtime">
+<span class="sig-name descname"><span class="pre">is_om_approve_downtime</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.is_om_approve_downtime" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.login_id">
+<span class="sig-name descname"><span class="pre">login_id</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.login_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.login_time">
+<span class="sig-name descname"><span class="pre">login_time</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.login_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.logout_time">
+<span class="sig-name descname"><span class="pre">logout_time</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.logout_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.lunch_time">
+<span class="sig-name descname"><span class="pre">lunch_time</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.lunch_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.not_ready_time">
+<span class="sig-name descname"><span class="pre">not_ready_time</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.not_ready_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.Dispute.Payroll.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.payroll">
+<span class="sig-name descname"><span class="pre">payroll</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.payroll" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.startdate">
+<span class="sig-name descname"><span class="pre">startdate</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.startdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.status">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.total_login_time">
+<span class="sig-name descname"><span class="pre">total_login_time</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.total_login_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.training_time">
+<span class="sig-name descname"><span class="pre">training_time</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.training_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Payroll.working_time">
+<span class="sig-name descname"><span class="pre">working_time</span></span><a class="headerlink" href="#core.models.Dispute.Payroll.working_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.Dispute.</span></span><span class="sig-name descname"><span class="pre">Roster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startdate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yearMonth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deluxcode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zipwire</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lob</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supervisor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Dispute.Roster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.Dispute.Roster.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.Dispute.Roster.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.client">
+<span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#core.models.Dispute.Roster.client" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.deluxcode">
+<span class="sig-name descname"><span class="pre">deluxcode</span></span><a class="headerlink" href="#core.models.Dispute.Roster.deluxcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.getName">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getName</span></span><a class="headerlink" href="#core.models.Dispute.Roster.getName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.getSupervisorName">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getSupervisorName</span></span><a class="headerlink" href="#core.models.Dispute.Roster.getSupervisorName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.Dispute.Roster.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.lob">
+<span class="sig-name descname"><span class="pre">lob</span></span><a class="headerlink" href="#core.models.Dispute.Roster.lob" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.Dispute.Roster.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.startdate">
+<span class="sig-name descname"><span class="pre">startdate</span></span><a class="headerlink" href="#core.models.Dispute.Roster.startdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.supervisor">
+<span class="sig-name descname"><span class="pre">supervisor</span></span><a class="headerlink" href="#core.models.Dispute.Roster.supervisor" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.yearMonth">
+<span class="sig-name descname"><span class="pre">yearMonth</span></span><a class="headerlink" href="#core.models.Dispute.Roster.yearMonth" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Dispute.Roster.zipwire">
+<span class="sig-name descname"><span class="pre">zipwire</span></span><a class="headerlink" href="#core.models.Dispute.Roster.zipwire" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-core.models.DowntimeTracker">
+<span id="core-models-downtimetracker-module"></span><h2>core.models.DowntimeTracker module<a class="headerlink" href="#module-core.models.DowntimeTracker" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.DowntimeTracker.</span></span><span class="sig-name descname"><span class="pre">DowntimeTracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remarks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approved_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zipwire</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.agent_name">
+<span class="sig-name descname"><span class="pre">agent_name</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.agent_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.approved_by">
+<span class="sig-name descname"><span class="pre">approved_by</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.approved_by" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.aux_code">
+<span class="sig-name descname"><span class="pre">aux_code</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.aux_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.created_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.getAgentName">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getAgentName</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.getAgentName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.getRaiserName">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getRaiserName</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.getRaiserName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.remarks">
+<span class="sig-name descname"><span class="pre">remarks</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.remarks" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.time_min">
+<span class="sig-name descname"><span class="pre">time_min</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.time_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.DowntimeTracker.DowntimeTracker.zipwire">
+<span class="sig-name descname"><span class="pre">zipwire</span></span><a class="headerlink" href="#core.models.DowntimeTracker.DowntimeTracker.zipwire" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-core.models.Employee">
+<span id="core-models-employee-module"></span><h2>core.models.Employee module<a class="headerlink" href="#module-core.models.Employee" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.Employee.Employee">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.Employee.</span></span><span class="sig-name descname"><span class="pre">Employee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deluxCode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loginId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zipwire_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supervisor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_active</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_superuser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_login</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_joined</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Employee.Employee" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.base_user.AbstractBaseUser</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.PermissionsMixin</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.AGENT">
+<span class="sig-name descname"><span class="pre">AGENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AGT'</span></em><a class="headerlink" href="#core.models.Employee.Employee.AGENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.Employee.Employee.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.EMAIL_FIELD">
+<span class="sig-name descname"><span class="pre">EMAIL_FIELD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'zipwire_name'</span></em><a class="headerlink" href="#core.models.Employee.Employee.EMAIL_FIELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.FIN">
+<span class="sig-name descname"><span class="pre">FIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FIN'</span></em><a class="headerlink" href="#core.models.Employee.Employee.FIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.Employee.Employee.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.OPERATIONS_MANAGER">
+<span class="sig-name descname"><span class="pre">OPERATIONS_MANAGER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OPER_MAN'</span></em><a class="headerlink" href="#core.models.Employee.Employee.OPERATIONS_MANAGER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.REQUIRED_FIELDS">
+<span class="sig-name descname"><span class="pre">REQUIRED_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#core.models.Employee.Employee.REQUIRED_FIELDS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.Roles">
+<span class="sig-name descname"><span class="pre">Roles</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(('AGT',</span> <span class="pre">'Agent'),</span> <span class="pre">('OPER_MAN',</span> <span class="pre">'Operations</span> <span class="pre">Manager'),</span> <span class="pre">('TEAM_SUP',</span> <span class="pre">'Team</span> <span class="pre">Lead/Supervisor'),</span> <span class="pre">('FIN',</span> <span class="pre">'Finance'))</span></em><a class="headerlink" href="#core.models.Employee.Employee.Roles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.TEAM_LEAD_OR_SUPERVISOR">
+<span class="sig-name descname"><span class="pre">TEAM_LEAD_OR_SUPERVISOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'TEAM_SUP'</span></em><a class="headerlink" href="#core.models.Employee.Employee.TEAM_LEAD_OR_SUPERVISOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.USERNAME_FIELD">
+<span class="sig-name descname"><span class="pre">USERNAME_FIELD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'loginId'</span></em><a class="headerlink" href="#core.models.Employee.Employee.USERNAME_FIELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.agent">
+<span class="sig-name descname"><span class="pre">agent</span></span><a class="headerlink" href="#core.models.Employee.Employee.agent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.date_joined">
+<span class="sig-name descname"><span class="pre">date_joined</span></span><a class="headerlink" href="#core.models.Employee.Employee.date_joined" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.deluxCode">
+<span class="sig-name descname"><span class="pre">deluxCode</span></span><a class="headerlink" href="#core.models.Employee.Employee.deluxCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.first_name">
+<span class="sig-name descname"><span class="pre">first_name</span></span><a class="headerlink" href="#core.models.Employee.Employee.first_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.getActiveAgentCount">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getActiveAgentCount</span></span><a class="headerlink" href="#core.models.Employee.Employee.getActiveAgentCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns active agents count</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.getApproved">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getApproved</span></span><a class="headerlink" href="#core.models.Employee.Employee.getApproved" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the total approved dispute count as per the role of employee.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.getApprovedDispute">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getApprovedDispute</span></span><a class="headerlink" href="#core.models.Employee.Employee.getApprovedDispute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns approved dispute counts as per role of employee</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.getDeclinedDispute">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getDeclinedDispute</span></span><a class="headerlink" href="#core.models.Employee.Employee.getDeclinedDispute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns declined disputes count as per the role of employee</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.getLob">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getLob</span></span><a class="headerlink" href="#core.models.Employee.Employee.getLob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the LOB of the employee</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.getName">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getName</span></span><a class="headerlink" href="#core.models.Employee.Employee.getName" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Returns the name of the employee</dt><dd><p>If name is not null then first name with last name is returned
+else parsed login id is returned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.getRaisedDispute">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getRaisedDispute</span></span><a class="headerlink" href="#core.models.Employee.Employee.getRaisedDispute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns raised dispute counts as per the role of employee</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.getSupervisor">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getSupervisor</span></span><a class="headerlink" href="#core.models.Employee.Employee.getSupervisor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the supervisor of employee</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.getSupervisorName">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getSupervisorName</span></span><a class="headerlink" href="#core.models.Employee.Employee.getSupervisorName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the supervisor name of employee if exists else NA</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.get_all_children">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_children</span></span><a class="headerlink" href="#core.models.Employee.Employee.get_all_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all the employees under the current employee.
+Note : The employee for which it returns includes it also</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.get_next_by_date_joined">
+<span class="sig-name descname"><span class="pre">get_next_by_date_joined</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">date_joined&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Employee.Employee.get_next_by_date_joined" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.get_previous_by_date_joined">
+<span class="sig-name descname"><span class="pre">get_previous_by_date_joined</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">date_joined&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Employee.Employee.get_previous_by_date_joined" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.get_role_display">
+<span class="sig-name descname"><span class="pre">get_role_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">role&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Employee.Employee.get_role_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><a class="headerlink" href="#core.models.Employee.Employee.groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.Employee.Employee.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.last_name">
+<span class="sig-name descname"><span class="pre">last_name</span></span><a class="headerlink" href="#core.models.Employee.Employee.last_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.logentry_set">
+<span class="sig-name descname"><span class="pre">logentry_set</span></span><a class="headerlink" href="#core.models.Employee.Employee.logentry_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.loginId">
+<span class="sig-name descname"><span class="pre">loginId</span></span><a class="headerlink" href="#core.models.Employee.Employee.loginId" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;core.models.Employee.UserManager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.Employee.Employee.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.role">
+<span class="sig-name descname"><span class="pre">role</span></span><a class="headerlink" href="#core.models.Employee.Employee.role" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.supervisor">
+<span class="sig-name descname"><span class="pre">supervisor</span></span><a class="headerlink" href="#core.models.Employee.Employee.supervisor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.supervisor_id">
+<span class="sig-name descname"><span class="pre">supervisor_id</span></span><a class="headerlink" href="#core.models.Employee.Employee.supervisor_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.user_permissions">
+<span class="sig-name descname"><span class="pre">user_permissions</span></span><a class="headerlink" href="#core.models.Employee.Employee.user_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Employee.Employee.zipwire_name">
+<span class="sig-name descname"><span class="pre">zipwire_name</span></span><a class="headerlink" href="#core.models.Employee.Employee.zipwire_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.Employee.UserManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.Employee.</span></span><span class="sig-name descname"><span class="pre">UserManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Employee.UserManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.base_user.BaseUserManager</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Employee.UserManager.create_superuser">
+<span class="sig-name descname"><span class="pre">create_superuser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loginId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_fields</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Employee.UserManager.create_superuser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Employee.UserManager.create_user">
+<span class="sig-name descname"><span class="pre">create_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loginId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_fields</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Employee.UserManager.create_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-core.models">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.models" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="modules.html">Payroll Tool</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="RevenuePayroll.html">RevenuePayroll package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="core.html">core package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="core.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="core.agent_view.html">core.agent_view package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.finance_view.html">core.finance_view package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.login_view.html">core.login_view package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.migrations.html">core.migrations package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">core.models package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-core.models.Dispute">core.models.Dispute module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-core.models.DowntimeTracker">core.models.DowntimeTracker module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-core.models.Employee">core.models.Employee module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-core.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.om_view.html">core.om_view package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.supervisor_view.html">core.supervisor_view package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.templatetags.html">core.templatetags package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.utils.html">core.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.admin">core.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.apps">core.apps module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.tests">core.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.urls">core.urls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.views">core.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manage.html">manage module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">run module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="modules.html">Documentation overview</a><ul>
+  <li><a href="core.html">core package</a><ul>
+      <li>Previous: <a href="core.migrations.html" title="previous chapter">core.migrations package</a></li>
+      <li>Next: <a href="core.om_view.html" title="next chapter">core.om_view package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Ankit Kumar Dubey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/core.models.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

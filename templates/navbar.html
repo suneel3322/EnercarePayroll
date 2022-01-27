@@ -1,0 +1,483 @@
+{% load static %}
+
+
+
+<style>
+   .modal-backdrop {
+      /* bug fix - no overlay */
+      display: none;
+   }
+</style>
+
+
+<!-- top navbar-->
+<header class="topnavbar-wrapper">
+   <!-- START Top Navbar-->
+   <nav class="navbar topnavbar">
+      <!-- START navbar header-->
+      <div class="navbar-header">
+
+         {% if 'agent' in request.path %}
+         <a class="navbar-brand" href="{% url 'core:agent-payroll' %}">
+            {% elif 'supervisor' in request.path %}
+            <a class="navbar-brand" href="{% url 'core:super-home' %}">
+               {% elif 'operations' in request.path %}
+               <a class="navbar-brand" href="{% url 'core:operations' %}">
+                  {% else %}
+                  <a class="navbar-brand" href="{% url 'core:finance-index' %}">
+                     {% endif %}
+
+                     <div class="brand-logo"><img class="img-fluid" src="{% static 'images/logodark.png' %}"
+                           alt="App Logo" width="100"></div>
+                     <div class="brand-logo-collapsed"><img class="img-fluid" src="{% static 'images/favicon.jpg' %}"
+                           alt="App Logo" width="100"></div>
+                  </a></div><!-- END navbar header-->
+      <!-- START Left navbar-->
+      <ul class="navbar-nav mr-auto flex-row">
+         <li class="nav-item">
+            <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops--><a
+               class="nav-link d-none d-md-block d-lg-block d-xl-block" href="#" data-trigger-resize=""
+               data-toggle-state="aside-collapsed"><em class="fa mr-2 fas fa-align-justify"></em></a>
+            <!-- Button to show/hide the sidebar on mobile. Visible on mobile only.--><a
+               class="nav-link sidebar-toggle d-md-none" href="#" data-toggle-state="aside-toggled"
+               data-no-persist="true"><em class="fa mr-2 fas fa-align-justify"></em></a></li>
+         <!-- START User avatar toggle-->
+         <li class="nav-item d-none d-md-block">
+            <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops--><a class="nav-link"
+               id="user-block-toggle" href="#user-block" data-toggle="collapse"><i
+                  class="fa mr-2 fas fa-user-tie"></i></a></li><!-- END User avatar toggle-->
+         <!-- START lock screen-->
+         <li class="nav-item d-none d-md-block"><a class="nav-link" href="{% url 'core:logout' %}" title="Logout"><i
+                  class="fa fas fa-sign-out-alt"></i></a></li><!-- END lock screen-->
+      </ul><!-- END Left navbar-->
+      <!-- START Right Navbar-->
+      <ul class="navbar-nav flex-row">
+         <li class="nav-item d-none d-md-block"><a class="nav-link" href="#" data-toggle-fullscreen=""><em
+                  class="fa icon-size-fullscreen mr-2"></em></a></li>
+         <!-- START Offsidebar button-->
+         <li class="nav-item"><a class="nav-link" href="{% url 'core:logout' %}" data-toggle-state="offsidebar-open"
+               data-no-persist="true"><em class="icon-notebook"></em></a></li><!-- END Offsidebar menu-->
+      </ul><!-- END Right Navbar-->
+   </nav><!-- END Top Navbar-->
+</header><!-- sidebar-->
+<aside class="aside-container">
+   <!-- START Sidebar (left)-->
+   <div class="aside-inner">
+      <nav class="sidebar" data-sidebar-anyclick-close="">
+         <!-- START sidebar nav-->
+         <ul class="sidebar-nav">
+            <!-- START user info-->
+            <li class="has-user-block">
+               <div class="collapse" id="user-block">
+                  <div class="item user-block">
+                     <!-- User picture-->
+                     <div class="user-block-picture text-center">
+                        <i class="far fa-user-circle fa-2x"></i>
+                     </div><!-- Name and Job-->
+                     <div class="user-block-info"><span class="user-block-name">Hello,
+                           {{request.user.getName}}</span><span class="user-block-role">{{request.user.getLob}}</span>
+                     </div>
+                  </div>
+               </div>
+            </li><!-- END user info-->
+            <!-- Iterates over all sidebar items-->
+            <li class="nav-heading pb-2"><span data-localize="sidebar.heading.HEADER"></span></li>
+            {% if 'agent' in request.path %}
+            <!-- <li class=" ">
+               <a href="{# url 'core:home' #}" title="Dashboard">
+                  <em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+               </a>
+            </li> -->
+            <li class=" ">
+               <a href="{% url 'core:agent-payroll' %}" title="Payroll"><em class="icon-graph"></em><span
+                     data-localize="sidebar.nav.chart.CHART">Payroll</span></a>
+            </li>
+            {% elif 'supervisor' in request.path %}
+            <li class=" ">
+               <a href="{% url 'core:super-home' %}" title="Dashboard">
+                  <em class="fas fa-tachometer-alt"></em><span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+               </a>
+            </li>
+            <li class=" ">
+               <a href="{% url 'core:super-disputes' %}" title="Supervisor Disputes">
+                  <em class="fas fa-book-open"></em><span data-localize="sidebar.nav.BUTTON">Agent Disputes</span>
+               </a>
+            </li>
+            <li class=" "><a href="#tracker" title="Downtime Tracker Management" data-toggle="collapse"><em
+                     class="fas fa-calendar"></em><span data-localize="sidebar.nav.form.FORM">Downtime
+                     Management</span></a>
+               <ul class="sidebar-nav sidebar-subnav collapse" id="tracker">
+                  <li class="sidebar-subnav-header">Donwtime Requests</li>
+                  <li class=" "><a href="{% url 'core:process-downtime' %}" title="Auto Downtime Requests"><em
+                           class="fab fa-sellcast"></em><span data-localize="sidebar.nav.form.STANDARD">Auto
+                           Downtime<br> Requests</span></a></li>
+                  <li class=" "><a href="{% url 'core:downtime-tracker' %}" title="Manual Downtime Requests"><em
+                           class="fas fa-calendar-alt"></em><span data-localize="sidebar.nav.form.EXTENDED">Manual
+                           Downtime<br> Requests</span></a></li>
+               </ul>
+            </li>
+            <li class=" ">
+               <a href="{% url 'core:super_add_agent' %}" title="Add Agent">
+                  <em class="fas fa-user-plus"></em>
+                  <span data-localize="sidebar.nav.form.STANDARD">Add Agent</span></a>
+            </li>
+            <li class=" ">
+               <a href="{% url 'core:sup-approved-payroll' %}" title="Approved Payroll Logs">
+                  <em class="fas fa-check-double"></em><span data-localize="sidebar.nav.BUTTON">Approved Payroll
+                     Logs</span>
+               </a>
+            </li>
+            <li class=" ">
+               <a href="{% url 'core:sup-not-approved-payroll' %}" title="Un-attended Payroll Logs">
+                  <em class="fas fa-envelope-open-text"></em><span data-localize="sidebar.nav.BUTTON">Un-attended
+                     Payroll Logs</span>
+               </a>
+            </li>
+            
+            {% if request.user.getClient == 'AWR' %}
+            <li class=" ">
+               <a href="{% url 'core:super-acw' %}" title="ACW hours for Approvals">
+                  <em class="fas fa-money-check"></em><span data-localize="sidebar.nav.BUTTON">ACW Logs</span>
+               </a>
+            </li>
+            {% endif %}
+               
+            {% elif 'operations' in request.path %}
+            <li class=" ">
+               <a href="{% url 'core:operations' %}" title="Dashboard">
+                  <em class="fas fa-tachometer-alt"></em><span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+               </a>
+            </li>
+            <li class=" ">
+               <a href="{% url 'core:om-unattended-disputes' %}" title="Unattened Disputes">
+                  <em class="fas fa-clipboard-list"></em><span data-localize="sidebar.nav.BUTTON">Unattened
+                     Disputes</span>
+               </a>
+            </li>
+            <li class=" ">
+               <a href="{% url 'core:om-unattended-payrolls' %}" title="Unattened Payrolls">
+                  <em class="fas fa-file-invoice-dollar"></em><span data-localize="sidebar.nav.BUTTON">Unattened
+                     Payrolls</span>
+               </a>
+            </li>
+            <li class=" ">
+               <a href="{% url 'core:om-disputes' %}" title="Agent Disputes">
+                  <em class="fas fa-book-open"></em><span data-localize="sidebar.nav.BUTTON">Agent Disputes</span>
+               </a>
+            </li>
+            <li class=" "><a href="#tracker" title="Downtime Tracker Management" data-toggle="collapse"><em
+                     class="fas fa-calendar"></em><span data-localize="sidebar.nav.form.FORM">Downtime
+                     Management</span></a>
+               <ul class="sidebar-nav sidebar-subnav collapse" id="tracker">
+                  <li class="sidebar-subnav-header">Donwtime Requests</li>
+                  <li class=" "><a href="{% url 'core:ops-process-downtime' %}" title="Auto Downtime Requests"><em
+                           class="fab fa-sellcast"></em><span data-localize="sidebar.nav.form.STANDARD">Auto
+                           Downtime<br> Requests</span></a></li>
+                  <li class=" "><a href="{% url 'core:downtime-approve' %}" title="Manual Downtime Requests"><em
+                           class="fas fa-calendar-alt"></em><span data-localize="sidebar.nav.form.EXTENDED">Manual
+                           Downtime<br> Requests</span></a></li>
+               </ul>
+            </li>
+            <!-- <li class=" ">
+               <a href="{# url 'core:downtime-approve' #}" title="Downtime Tracker">
+                  <em class="icon-event"></em><span data-localize="sidebar.nav.BUTTON">Downtime Tracker</span>
+               </a>
+            </li> -->
+            <li class=" "><a href="#agentMgt" title="Agent Management" data-toggle="collapse"><em
+                     class="fas fa-users-cog"></em><span data-localize="sidebar.nav.form.FORM">Agent
+                     Management</span></a>
+               <ul class="sidebar-nav sidebar-subnav collapse" id="agentMgt">
+                  <li class="sidebar-subnav-header">Forms</li>
+                  <li class=" "><a href="{% url 'core:add_agent' %}" title="Add Agent"><em
+                           class="fas fa-user-plus"></em><span data-localize="sidebar.nav.form.STANDARD">Add
+                           Agent</span></a></li>
+                  <li class=" "><a href="{% url 'core:reset_password' %}" title="Reset Password"><em
+                           class="fas fa-user-lock"></em><span data-localize="sidebar.nav.form.EXTENDED">Reset
+                           Password</span></a></li>
+               </ul>
+            </li>
+            <li class=" ">
+               <a href="#" title="Generate Report" data-toggle="modal" data-target="#exportReport">
+                  <em class="fas fa-file-download"></em><span data-localize="sidebar.nav.BUTTON">Export Report</span>
+               </a>
+            </li>
+            {% if request.user.getClient == 'AWR' %}
+            <li class=" ">
+               <a href="{% url 'core:om-acw' %}" title="ACW hours for Approvals">
+                  <em class="fas fa-money-check"></em><span data-localize="sidebar.nav.BUTTON">ACW Logs</span>
+               </a>
+            </li>
+            {% endif %}
+            {% else %}
+            <li class=" ">
+               <a href="{% url 'core:finance-index' %}" title="Dashboard">
+                  <em class="fas fa-tachometer-alt"></em><span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+               </a>
+            </li>
+            <li class=" ">
+               <a href="{% url 'core:finn-disputes' %}" title="Finance Disputes">
+                  <em class="fas fa-book-open"></em><span data-localize="sidebar.nav.BUTTON">Agent Disputes</span>
+               </a>
+            </li>
+            <li class=" ">
+               <a href="#" title="Generate Report" data-toggle="modal" data-target="#exportReport">
+                  <em class="fas fa-file-download"></em><span data-localize="sidebar.nav.BUTTON">Export Report</span>
+               </a>
+            </li>
+            {% endif %}
+
+            {% if not 'agent' in request.path %}
+            <li class=" ">
+               <a href="{% url 'core:change-password' %}" title="Change Password">
+                  <em class="fas fa-user-lock"></em><span data-localize="sidebar.nav.BUTTON">Change Password</span>
+               </a>
+            </li>
+            {% endif %}
+
+         </ul><!-- END sidebar nav-->
+      </nav>
+   </div><!-- END Sidebar (left)-->
+</aside><!-- offsidebar-->
+
+
+{% if request.user.email is None %}
+{% include 'email_check.html' %}
+{% endif %}
+
+
+{% if 'finance' in request.path %}
+<!-- Modal -->
+<div class="modal fade" id="exportReport" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-header" style="background-color: #402543;">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Agent Payroll Report</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <div class="row mx-2 my-2 justify-content-center">
+               <form class="form mx-2" method="get" action="{% url 'core:export' %}" id="exportForm">
+                  <div class="form-row">
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">From</div>
+                        </div>
+                        <input class="form-control" id="fdate" name="fdate" type="date" />
+                     </div>
+                  </div>
+                  <div class="form-row my-2">
+                     <div class="input-group ">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">To</div>
+                        </div>
+                        <input class="form-control" id="tdate" name="tdate" type="date" />
+                     </div>
+                  </div>
+                  <div class="form-row my-2">
+                     <div class="col-6">
+                        <select name="client" id="client" class="custom-select" aria-required="true" required>
+                           <option value="None" selected>Select Client...</option>
+                           {% for client in request.user.get_client_list %}
+                           <option value="{{client.client}}">{{client.client}}</option>
+                           {% endfor %}
+                        </select>
+                     </div>
+                     <div class="col-6">
+                        <select name="lob" id="lob" class="custom-select" aria-required="true" required>
+                           <option value="None" selected>Select LOB....</option>
+                           {% for lob in request.user.get_lob_list %}
+                           <option value="{{lob.lob}}">{{lob.lob}}</option>
+                           {% endfor %}
+                        </select>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" form="exportForm" class="btn btn-primary">Export as CSV</button>
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+
+{% if 'finance' in request.path %}
+<!-- Modal -->
+<div class="modal fade" id="exportCSVModal" tabindex="-1" aria-labelledby="exportCSVModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-header" style="background-color: #402543;">
+            <h5 class="modal-title" id="exportCSVModalLabel" style="color: white;">Agent Dispute Report</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <div class="row mx-2 my-2 justify-content-center">
+               <form class="form form-inline mx-2" method="get" action="{% url 'core:export-csv' %}" id="exportcsv">
+                  <div class="row">
+                     <div class="col-6">
+                        <div class="input-group">
+                           <div class="input-group-prepend">
+                              <div class="input-group-text">From</div>
+                           </div>
+                           <input class="form-control" id="fdate" name="fdate" type="date" />
+                        </div>
+                     </div>
+                     <div class="col-6">
+                        <div class="input-group ">
+                           <div class="input-group-prepend">
+                              <div class="input-group-text">To</div>
+                           </div>
+                           <input class="form-control" id="tdate" name="tdate" type="date" />
+                        </div>
+                     </div>
+                  </div>
+                  <!-- <div class="form-row my-2">
+                     <div class="col-6">
+                        <select name="dispute_type" id="d_type" class="custom-select" aria-required="true" required>
+                           <option value="None" selected>Select Dispute Type...</option>
+                           <option value="CP_IT">CP IT</option>
+                           <option value="COACH_TRAIN">Coaching/Training</option>
+                           <option value="CLIENT_IT">Client IT</option>
+                        </select>
+                     </div>
+                     <div class="col-6">
+                        <select name="dispute_status" id="d_type" class="custom-select" aria-required="true" required>
+                           <option value="NEW" selected>Select Status Type...</option>
+                           <option value="YES">Yes</option>
+                           <option value="NO">No</option>
+                           <option value="DISPUTE">Dispute</option>
+                        </select>
+                     </div>
+                  </div> -->
+               </form>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" form="exportcsv" class="btn btn-primary">Export as CSV</button>
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+
+{% if 'operations' in request.path %}
+<!-- Modal -->
+<div class="modal fade" id="exportReport" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-header" style="background-color: #402543;">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Agent Payroll Report</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <div class="row mx-2 my-2 justify-content-center">
+               <form class="form mx-2" method="get" action="{% url 'core:export' %}" id="exportForm">
+                  <input type="hidden" name="client" value="{{request.user.getClient}}">
+                  <div class="form-row">
+                     <div class="input-group mr-2">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">From</div>
+                        </div>
+                        <input class="form-control" id="fdate" name="fdate" type="date" />
+                     </div>
+                  </div>
+                  <div class="form-row my-2">
+                     <div class="input-group ">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">To</div>
+                        </div>
+                        <input class="form-control" id="tdate" name="tdate" type="date" />
+                     </div>
+                  </div>
+                  <div class="form-row">
+                     <select name="lob" id="lob" class="custom-select" aria-required="true" required>
+                        <option value="None" selected>Select LOB....</option>
+                        {% for lob in request.user.get_lob_list %}
+                        <option value="{{lob.lob}}">{{lob.lob}}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" form="exportForm" class="btn btn-primary">Export as CSV</button>
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% if 'operations' in request.path %}
+<!-- Modal -->
+<div class="modal fade" id="exportCSVModal" tabindex="-1" aria-labelledby="exportCSVModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-header" style="background-color: #402543;">
+            <h5 class="modal-title" id="exportCSVModalLabel" style="color: white;">Agent Dispute Report</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <div class="row mx-2 my-2 justify-content-center">
+               <form class="form form-inline mx-2" method="get" action="{% url 'core:export-csv' %}" id="exportcsv">
+                  <div class="row">
+                     <div class="col-6">
+                        <div class="input-group">
+                           <div class="input-group-prepend">
+                              <div class="input-group-text">From</div>
+                           </div>
+                           <input class="form-control" id="fdate" name="fdate" type="date" />
+                        </div>
+                     </div>
+                     <div class="col-6">
+                        <div class="input-group ">
+                           <div class="input-group-prepend">
+                              <div class="input-group-text">To</div>
+                           </div>
+                           <input class="form-control" id="tdate" name="tdate" type="date" />
+                        </div>
+                     </div>
+                  </div>
+                  <!-- <div class="form-row my-2">
+                     <div class="col-6">
+                        <select name="dispute_type" id="d_type" class="custom-select" aria-required="true" required>
+                           <option value="None" selected>Select Dispute Type...</option>
+                           <option value="CP_IT">CP IT</option>
+                           <option value="COACH_TRAIN">Coaching/Training</option>
+                           <option value="CLIENT_IT">Client IT</option>
+                        </select>
+                     </div>
+                     <div class="col-6">
+                        <select name="dispute_status" id="d_type" class="custom-select" aria-required="true" required>
+                           <option value="NEW" selected>Select Status Type...</option>
+                           <option value="YES">Yes</option>
+                           <option value="NO">No</option>
+                           <option value="DISPUTE">Dispute</option>
+                        </select>
+                     </div>
+                  </div> -->
+               </form>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" form="exportcsv" class="btn btn-primary">Export as CSV</button>
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}

@@ -1,0 +1,106 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+
+{% block title %}
+   {{title}}
+{% endblock title %}
+   
+
+
+{% block content %}
+<!-- Main section-->
+<section class="section-container">
+   <!-- Page content-->
+   <div class="content-wrapper">
+      <div class="content-heading">
+         <div>Dashboard<small data-localize="dashboard.WELCOME"></small></div><!-- START Language list-->
+         </div><!-- END Language list-->
+      </div>
+      
+   </div>
+</section>
+{% endblock content %}
+   
+
+{% block customJs %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
+<script>
+   let yearlyChartCanvas = document.getElementById('yearlyChart');
+   const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+
+];
+   const data = {
+      labels: MONTHS,
+      datasets: [
+         // first dataset is of working time
+         {
+            label: 'Working Time',
+            data: [
+               // do the looping from the server side
+               12,23,13,54,56,66,76,34,23,54,56,76
+            ],
+            borderColor: '#9d95cf',
+            backgroundColor: '#9d95cf',
+            stack: 'combined',
+            type:'bar'
+         },
+         // second dataset is of lunch break and not ready
+         {
+            label: 'Lunch/Break/Not Ready Time',
+            data: [
+               // do the looping from the server side
+               98,78,67,56,45,34,23,32,21,34,54,56
+            ],
+            borderColor: '#766bbc',
+            backgroundColor: '#766bbc',
+            stack: 'combined',
+            type:'bar'
+         },
+         // third dataset is of payroll time which is a line 
+         {
+            label: 'Payroll Time',
+            data: [
+               // do the looping from the server side
+               87,65,54,34,56,34,23,45,67,78,12,34
+            ],
+            borderColor: '#5a4da5',
+            backgroundColor: '#5a4da5',
+            stack: 'combined',
+         },
+      ]
+   };
+
+   const config = {
+      type: 'line',
+      data: data,
+      options: {
+         plugins: {
+            title: {
+               display : true,
+               text : 'Yearly Payroll Chart'
+            }
+         },
+         scales: {
+            y: {
+               stacked: true
+            }
+         }
+      },
+   };
+   let yearlyChart = new Chart(yearlyChartCanvas,config);
+</script>
+{% endblock customJs %}

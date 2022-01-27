@@ -1,0 +1,105 @@
+{% extends 'new_base.html' %}
+{% load static %}
+{% load remove_dot %}
+
+
+{% block title %}
+    Unattened Payroll Logs
+{% endblock title %}
+    
+
+{% block content %}
+    <!-- Main section-->
+<section class="section-container">
+    <!-- Page content-->
+    <div class="content-wrapper">
+       <div class="content-heading">
+          <div>Unattened Payroll Logs<small>Below table contains all of those payroll which were not attened by agents in last 3 days.</small></div>
+       </div>
+       <!-- DATATABLE DEMO 1-->
+       <div class="card" style="width:max-content;">
+          <div class="card-header">
+             <div class="card-title">Unattened Payroll Logs</div>
+             <div class="text-sm"></div>
+          </div>
+          <div class="card-body" style="width: fit-content;">
+             
+             <div class="table bootgrid">
+                <!-- custom table from the previous project -->
+             <table class="table table-bordered table-hover" id="bootgrid-command" style="color: black;">
+                <thead>
+                   <tr role="row" style="background-color: rgba(0, 183, 255, 0.15);word-wrap: normal;">
+                       <th rowspan="2" colspan="1" style="text-align: center;width: max-content;" >Payroll Generated Date
+                       </th>
+                       <th rowspan="2"
+                           colspan="1" style="text-align: center;" > Agent Name
+                       </th>
+                       <th rowspan="2"
+                           colspan="1" style="text-align: center;" > Email ID
+                       </th>
+                   </tr>
+                   </thead>
+                   <tbody>
+
+                   {% for item in unattended_payrolls %}
+
+                   <tr>
+                       <td style="width: max-content;">{{item.startdate}}</td>
+                       <td>{{item.login_id|remove_dot}}</td>
+                       <td>
+                       {% if item.email %}
+                       <a class="btn btn-primary" href="mailto:{{item.email}}?subject=Request%20to%20process%20payroll&body=Please%20process%20your%20payroll">
+                        <i class="fas fa-paper-plane"></i> Send Mail</a>
+                       {% else %}
+                       N/A
+                       {% endif %}
+                           </td>
+                   </tr>
+ 
+                   {% endfor %}
+                   <tr class="odd">
+                       <td valign="top" colspan="9" class="dataTables_empty"></td>
+                   </tr>
+                   </tbody>
+             </table>
+ 
+             {% if unattended_payrolls.has_other_pages %}
+             <ul class="pagination">
+                 {% if unattended_payrolls.has_previous %}
+                 <li class="page-item">
+                   <a class="page-link" href="?page=1" aria-label="Previous">
+                     <span aria-hidden="true">&laquo;</span>
+                     <span class="sr-only">begin</span>
+                   </a>
+                 </li>   {% endif %}
+                 
+                 {% for n in unattended_payrolls.paginator.page_range %}
+                   {% if unattended_payrolls.number == n %}
+                     <li class="page-item active">
+                       <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+                     </li>
+                   {% elif n > unattended_payrolls.number|add:'-3' and n < unattended_payrolls.number|add:'3' %}
+                     <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                   {% endif %}
+                 {% endfor %}
+                 
+                 {% if unattended_payrolls.has_next %}
+                   <li class="page-item">
+                     <a class="page-link" href="?page={{ unattended_payrolls.paginator.num_pages }}" aria-label="Next">
+                       <span aria-hidden="true">&raquo;</span>
+                       <span class="sr-only">end</span>
+                     </a>
+                   </li>
+                   {% endif %}
+             </ul>
+          {% endif %}
+             </div>
+             
+          
+          </div>
+       </div>
+       
+    </div>
+ </section>
+{% endblock content %}
+    

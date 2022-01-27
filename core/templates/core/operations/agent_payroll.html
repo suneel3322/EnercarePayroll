@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Welcome {{ request.user.loginId }}
+{% endblock title %}
+
+{% block content %}
+<main class=" container-fluid ">
+    <div class="main-container mt-3"  style="width: fit-content;">
+        <section>
+            <div class="section-header d-flex">
+                <h3 class="flex-grow-1">Payroll Logs<sub>{{user}}</sub></h3>
+            </div>
+        </section>
+        <style>
+            th, tr{
+            text-align: center;
+            }
+        </style>
+
+        <div class="table table-sm" style="width: auto;">
+            <div id="data_tables_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="data_tables_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-sm no-footer" id="data_tables" role="grid"
+                                           aria-describedby="data_tables_info" >
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="data_tables"
+                                                rowspan="2" colspan="1" style="width: 42.2969px;"
+                                                aria-label="ID: activate to sort column descending"
+                                                aria-sort="ascending">Date
+                                            </th>
+                                            <th class="no-wrap sorting" tabindex="0" aria-controls="data_tables"
+                                                rowspan="2" colspan="1" style="width: 263.297px;"
+                                                aria-label="Employee: activate to sort column ascending">Login Time
+                                                (Hrs)
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="data_tables" rowspan="2"
+                                                colspan="1" style="width: 195px;"
+                                                aria-label="Scorecard: activate to sort column ascending">Logout
+                                                Time (Hrs)
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="data_tables" rowspan="2"
+                                                colspan="1" style="width: 195px;"
+                                                aria-label="Group &amp;amp; Ref.: activate to sort column ascending">
+                                                Total Login Time (Hrs)
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="data_tables" rowspan="2"
+                                                colspan="1" style="width: 195px;"
+                                                aria-label="Group &amp;amp; Ref.: activate to sort column ascending">
+                                                Working Time (Hrs)
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="data_tables" rowspan="2"
+                                                colspan="1" style="width: 104.875px;"
+                                                aria-label="Evaluator: activate to sort column ascending">
+                                                NotReady/Break/Lunch (Hrs)
+                                            </th>
+                                            <th style="text-align: center; width: 81.0469px;" class="sorting"
+                                                tabindex="0" aria-controls="data_tables" rowspan="2" colspan="1"
+                                                aria-label="Score: activate to sort column ascending"
+                                                align="center">Coaching/Training (Hrs)
+                                            </th>
+                                            <th style="text-align: center; width: 81.0469px;" class="sorting"
+                                                tabindex="0" aria-controls="data_tables" rowspan="2" colspan="1"
+                                                aria-label="Score: activate to sort column ascending"
+                                                align="center">Payroll Time (Hrs)
+                                            </th>
+                                            <th style="text-align: center; width: 81.0469px;" class="sorting"
+                                                tabindex="0" aria-controls="data_tables" rowspan="2" colspan="1"
+                                                aria-label="Score: activate to sort column ascending"
+                                                align="center">Status
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!--
+                                            For Performance Reasons Content will be served to data tables as JSON
+                                        -->
+                                        {% for item in res %}
+                                        <tr>
+                                            <td>{{item.startdate}}</td>
+                                            <td>{{item.login_time}}</td>
+                                            <td>{{item.logout_time}}</td>
+                                            <td>{{item.getTotalLoginTimeInHours}}</td>
+                                            <td>{{item.getWorkingTimeInHours}}</td>
+                                            <td>{{item.getLunchBreakNotReadyTimeInHours}}</td>
+                                            <td>{{item.getCoachingTrainingTimeInHours}}</td>
+                                            <td>{{item.getPayrollTimeInHours}}</td>
+                                            <td>
+                                                <h4>
+                                                    <span class="
+                                                    {% if item.status == 'NEW' %}
+                                                    badge badge-info badge-pill
+                                                    {% elif item.status == 'YES' %}
+                                                    badge badge-success badge-pill
+                                                    {% elif item.status == 'NO' %}
+                                                    badge badge-danger badge-pill
+                                                    {% else %}
+                                                    badge badge-warning badge-pill
+                                                    {% endif %}
+                                                     ">{{item.status}}</span>
+                                                </h4>
+                                            </td>
+                                        </tr>
+
+                                        {% endfor %}
+                                        <tr class="odd">
+                                            <td valign="top" colspan="9" class="dataTables_empty"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="below-main-container"></div>
+</main>
+{% endblock content %}

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Welcome {{ request.user.loginId }}
+{% endblock title %}
+
+{% block content %}
+<main class=" container-fluid px-2 ">
+    <div class="main-container mt-3">
+        <section>
+            <div class="section-header d-flex">
+                <h3 class="flex-grow-1">Downtime Tracker Logs</h3>
+            </div>
+        </section>
+
+
+        <div class="card shadow">
+            <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold">FOR APPROVALS&nbsp;</p>
+                        </div>
+            <div class="card-body">
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table dataTable my-0" id="dataTable">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th rowspan="2" colspan="1">Date</th>
+                                            <th rowspan="2" colspan="1">Raised By</th>
+                                            <th rowspan="2" colspan="1">Agent Name</th>
+                                            <th rowspan="2" colspan="1">Time <sup>(min)</sup></th>
+                                            <th rowspan="2" colspan="1">Aux Code <sub>By Supervisor</sub> </th>
+                                            <th rowspan="2" colspan="1">Remarks <sub>By Supervisor</sub></th>
+                                            <th rowspan="1" colspan="2">Actions</th>
+                                        </tr>
+                                    <tr>
+                                        <th>Approve</th>
+                                        <th>Decline</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                    {% for it in res %}
+                                        <tr>
+                                            <td>{{it.created_at}}</td>
+                                            <td>{{it.getRaiserName}}</td>
+                                            <td>{{it.getAgentName}}</td>
+                                            <td>{{it.time_min|default:'N/A'}}</td>
+                                            <td>{{it.aux_code|default:'N/A'}}</td>
+                                            <td>{{it.remarks}}</td>
+                                            <form action="" method="post" id="form{{it.pk}}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="tracker_id" value="{{it.pk}}">
+                                                <td>
+                                                    <button class="btn btn-success btn-sm" type="submit"
+                                                            form="form{{it.pk}}" name="action" value="YES">Approve
+                                                </button>
+                                            </td>
+                                        </form>
+                                                <td>
+                                                    <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target="#exampleModal{{it.pk}}">
+                                                    Decline
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal{{it.pk}}" tabindex="-1"
+                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header text-center">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Reasons</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="" method="post" id="reasonForm{{it.pk}}" class="form">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="dispute_id" value="{{it.pk}}">
+                                                                    <div class="form-group">
+                                                                        <div class="row row mx-2">
+                                                                            <textarea cols="10" rows="10" name="reasonArea" class="form-control"  placeholder="Reason for declining the agent's dispute..."></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Cancel
+                                                                </button>
+                                                                <button type="submit" form="reasonForm{{it.pk}}" class="btn btn-primary" name="action" value="NO">
+                                                                    Send & Decline
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><strong>Date</strong></td>
+                                            <td><strong>Raised By</strong></td>
+                                            <td><strong>Disputed Time</strong></td>
+                                            <td><strong>Approved Time</strong></td>
+                                            <td><strong>Supervisor Remarks</strong></td>
+                                            <td><strong>Approve</strong></td>
+                                            <td><strong>Decline</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+        </div>
+    </div>
+    <div id="below-main-container"></div>
+</main>
+{% endblock content %}

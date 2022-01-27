@@ -1,0 +1,71 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+
+{% block title %}
+   {{title}}
+{% endblock title %}
+   
+
+{% block content %}
+<!-- Main section-->
+<section class="section-container">
+   <!-- Page content-->
+   <div class="content-wrapper">
+      
+      <div class="card shadow-lg o-hidden border-0 my-5">
+         <div class="card-body p-0">
+             <div class="row justify-content-center">
+ 
+                 <div class="col-lg-7">
+                     <div class="p-5">
+                         <div class="text-center">
+                             <h4 class="text-dark mb-4">Let's Track!</h4>
+                         </div>
+                         <form action="" method="post" class="user">
+                             {% csrf_token %}
+                             <div class="form-group row">
+                                 <div class="col-sm-6 mb-3 mb-sm-0">
+                                     <label for="date">Date</label>
+                                     <input class="form-control form-control-user" type="date" id="date"
+                                         aria-describedby="" placeholder="YYYY/MM/DD" name="date" required>
+                                 </div>
+                                 <div class="col-sm-6">
+                                     <label for="agent_name">Choose Agent...</label>
+                                     <select name="agent_name" id="agent_name" class="form-control" multiple required
+                                         size="5">
+                                         {% for it in res %}
+                                         <option value="{{it.loginId}}">{{it.getName}}</option>
+                                         {% endfor %}
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="form-group row">
+                                 <div class="col-sm-6 mb-3 mb-sm-0">
+                                     <input class="form-control form-control-user" type="number" id="time"
+                                         aria-describedby="timeHelp" placeholder="Time (min)" name="time" min="0"
+                                         required>
+                                 </div>
+                                 <div class="col-sm-6">
+                                     <input class="form-control form-control-user" type="text" id="aux_code"
+                                         aria-describedby="aux_codeHelp" placeholder="Aux Code" name="aux_code" required>
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                                 <textarea name="remarks" id="remarks" cols="30" rows="10" class="form-control"
+                                     placeholder="Supervisor remarks" required></textarea>
+                             </div>
+                             <button class="btn btn-primary btn-block text-white btn-user" type="submit">Submit
+                             </button>
+ 
+                         </form>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div id="below-main-container"></div>
+     </div>
+      
+   </div>
+</section>
+{% endblock content %}

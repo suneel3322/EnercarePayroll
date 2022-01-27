@@ -1,0 +1,79 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+{% block title %}
+    {{requst.user.loginId}} | Declined Disputes Logs
+{% endblock title %}
+    
+
+{% block content %}
+
+<!-- Main section -->
+<section class="section-container">
+    <!-- Page content -->
+    <div class="content-wrapper">
+        <!-- DATATABLE DEMO -->
+        <div class="card"  style="width: max-width;">
+            <div class="card-header">
+                <div class="card-title">Declined disputes Logs</div>
+                <div class="text-sm"></div>
+            </div>
+            <div class="card-group" style="width: max-content;">
+                {% for item in res %}
+                <div class="card border-danger mb-3" style="max-width: 18rem;">
+                    <div class="card-body text-danger" style="width: max-width;">
+                        <!-- here put the code for card layout to show the agents that have approved disputes -->
+                        <p class="card-text">
+                            {{item.employee}}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">
+                            {% if request.user.role == 'TEAM_SUP' %}
+                                {{item.sup_approve_date}}
+                            {% elif request.user.role == 'OPER_MAN' %}
+                                {{item.oper_man_approve_date}}
+                            {% elif request.user.role == 'FIN' %}
+                                {{item.finan_approve_date}}
+                            {% endif %}
+                        </small>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% if res.has_other_pages %}
+                <ul class="pagination">
+                    {% if res.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">begin</span>
+                        </a>
+                    </li> {% endif %}
+
+                    {% for n in res.paginator.page_range %}
+                    {% if res.number == n %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+                    </li>
+                    {% elif n > res.number|add:'-3' and n < res.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if res.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ res.paginator.num_pages }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">end</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+    

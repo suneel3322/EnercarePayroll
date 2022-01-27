@@ -1,0 +1,139 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+{% block title %}
+    After Call Work Logs
+{% endblock title %}
+    
+
+{% block content %}
+
+<!-- Main section -->
+<section class="section-container">
+    <!-- Page content -->
+    <div class="content-wrapper">
+        <div>
+            After Call Work Logs
+            <small>
+                For Approvals
+            </small>
+        </div>
+        <!-- DATATABLE DEMO -->
+        <div class="card" style="width: max-width;">
+            <div class="card-header">
+                <div class="card-title">After Call Work Logs</div>
+                <div class="text-sm"></div>
+            </div>
+            <div class="card-body" style="width: max-width;">
+                <div class="table bootgrid">
+                    <!-- custom table from the previous project -->
+                 <table class="table table-bordered table-hover" id="bootgrid-command" style="color: black;">
+                    <thead>
+                       <tr role="row" style="background-color: rgba(0, 183, 255, 0.15);word-wrap: normal;">
+                           <th rowspan="2" colspan="1" style="text-align: center;width: max-content;" >Date
+                           </th>
+                           <th rowspan="2" colspan="1" style="text-align: center;" >Agent's Name
+                           </th>
+                           <th style="text-align: center;"
+                               rowspan="2" colspan="1"
+                               >ACW (Hrs)
+                           </th>
+                           <th style="text-align: center;"
+                               rowspan="1" colspan="2"
+                               >Actions
+                           </th>
+                       </tr>
+                       <tr style="background-color: rgba(0, 183, 255, 0.15);">
+                           <th>Approve</th>
+                           <th>Decline</th>
+                       </tr>
+                       </thead>
+                       <tbody>
+                       <!--
+                           For Performance Reasons Content will be served to data tables as JSON
+                       -->
+                       {% for item in res %}
+                           
+                                
+                       <tr>
+                           <td style="width: max-content;">{{item.startdate}}</td>
+                           <td>{{item.login_id|title}}</td>
+                           <td>{{item.acw_time}}</td>  
+                           <td>
+                               <form action="
+                               {% if request.user.role == 'TEAM_SUP' %}
+                                    {% url 'core:super-acw' %}
+                                {% else %}
+                                    {% url 'core:om-acw' %}
+                               {% endif %}
+                               " method="post">
+                                   {% csrf_token %}
+                                   <input type="hidden" name="action" value="YES">
+                                   <input type="hidden" name="acw_id" value="{{item.pk}}">
+                                   <button type="submit" class="btn btn-success btn-sm" value="Approve" ><i class="far fa-calendar-check fa-2x"></i></button>
+                               </form>
+                           </td>
+     
+     
+                           <td>
+                            <form action="
+                            {% if request.user.role == 'TEAM_SUP' %}
+                                {% url 'core:super-acw' %}
+                            {% else %}
+                                {% url 'core:om-acw' %}
+                            {% endif %}" 
+                            method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="NO">
+                                <input type="hidden" name="acw_id" value="{{item.pk}}">
+                                <button type="submit" class="btn btn-danger btn-sm" value="Decline" ><i class="fas fa-fist-raised fa-2x"></i></button>
+                            </form>
+                           </td>     
+                       </tr>
+     
+                       {% endfor %}
+                       <tr class="odd">
+                           <td valign="top" colspan="9" class="dataTables_empty"></td>
+                       </tr>
+                       </tbody>
+                 </table>
+     
+                 {% if res.has_other_pages %}
+                    <ul class="pagination">
+                        {% if res.has_previous %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page=1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">begin</span>
+                          </a>
+                        </li>   {% endif %}
+                        
+                        {% for n in res.paginator.page_range %}
+                          {% if res.number == n %}
+                            <li class="page-item active">
+                              <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+                            </li>
+                          {% elif n > res.number|add:'-3' and n < res.number|add:'3' %}
+                            <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                        
+                        {% if res.has_next %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ res.paginator.num_pages }}" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                              <span class="sr-only">end</span>
+                            </a>
+                          </li>
+                          {% endif %}
+                    </ul>
+                 {% endif %}
+                 
+                 </div>
+                 
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+    

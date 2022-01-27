@@ -1,0 +1,287 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+
+{% block title %}
+   {{title}}
+{% endblock title %}
+   
+
+{% block content %}
+
+
+<!-- Main section-->
+<section class="section-container">
+   <!-- Page content-->
+   <div class="content-wrapper">
+      <div class="content-heading">
+         <div>Payroll Logs<small>Below table contains login time, logout time, working time, break, lunch, not ready, coaching/ training time etc. in minutes till now. Please approve or raise dispute if not satisfied with the data in the table.</small></div>
+      </div>
+      <!-- DATATABLE DEMO 1-->
+      <div class="card" style="width:fit-content;">
+         <div class="card-header">
+            <div class="card-title">Payroll Logs</div>
+            <div class="text-sm"></div>
+         </div>
+         <div class="card-body" style="width: fit-content;">
+            
+            <div class="table bootgrid">
+               <!-- custom table from the previous project -->
+            <table class="table table-bordered table-hover" id="bootgrid-command" style="color: black;">
+               <thead>
+                  <tr role="row" style="background-color: rgba(0, 183, 255, 0.15);word-wrap: normal;">
+                      <th rowspan="2" colspan="1" style="text-align: center;width: max-content;" >Date
+                      </th>
+                      <th rowspan="2" colspan="1" style="text-align: center;" >Login Time (Hrs)
+                      </th>
+                      <th rowspan="2"
+                          colspan="1" style="text-align: center;" >Logout
+                          Time (Hrs)
+                      </th>
+                      <th rowspan="2"
+                          colspan="1" style="text-align: center;" >
+                          Total Login Time (Hrs)
+                      </th>
+                      <th rowspan="2"
+                          colspan="1" style="text-align: center;" >
+                          Working Time (Hrs)
+                      </th>
+                      <th rowspan="2"
+                          colspan="1" style="text-align: center;" >
+                          NotReady/ Break/ Lunch (Hrs)
+                      </th>
+                      <th style="text-align: center;"
+                          rowspan="2" colspan="1"
+                          >Coaching/ Training (Hrs)
+                      </th>
+                      <th style="text-align: center;"
+                          rowspan="2" colspan="1"
+                          >Payroll Time (Hrs)
+                      </th>
+                      <th style="text-align: center;"
+                          rowspan="1" colspan="2"
+                          >Agent Comment
+                      </th>
+                      <th style="text-align: center;"
+                          rowspan="2" colspan="1"
+                          >Disputes
+                      </th>
+                      <th style="text-align: center;"
+                          rowspan="2" colspan="1"
+                          >Dispute Time (mins)
+                      </th>
+                      <th style="text-align: center;"
+                          rowspan="1" colspan="3"
+                          >Supervisor
+                      </th>
+                  </tr>
+                  <tr style="background-color: rgba(0, 183, 255, 0.15);">
+                      <th>Approve</th>
+                      <th>Dispute</th>
+                      <th>Status</th>
+                      <th>Approved Time (min)</th>
+                      <th>Reason</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <!--
+                      For Performance Reasons Content will be served to data tables as JSON
+                  -->
+                  {% for item in res %}
+                  <tr>
+                      <td style="width: max-content;">{{item.startdate}}</td>
+                      <td>{{item.login_time}}</td>
+                      <td>{{item.logout_time}}</td>
+                      <td>{{item.total_login_time}}</td>
+                      <td>{{item.working_time}}</td>
+                      <td>{{item.lunch_break_not_readytime}}</td>
+                      <td>{{item.coaching_training_time}}</td>
+                      <td>{{item.payroll}}</td>
+
+                      <td>
+                          <form action="{% url 'core:approve' %}" method="post">
+                              {% csrf_token %}
+                              <input type="hidden" name="approveStatus" value="YES">
+                              <input type="hidden" name="approveId" value="{{item.id}}">
+                              <button type="submit"
+                                     {% if item.is_approved %}
+                                     class="btn btn-success btn-sm"
+                                     value="Approved"
+                                     disabled
+                                     {% elif item.status == 'DISPUTE' %}
+                                      disabled
+                                      class="btn btn-success btn-sm"
+                                      value="Approve"
+                                     {% else %}
+                                     class="btn btn-success btn-sm"
+                                     value="Approve"
+                                     {% endif %}
+                              ><i class="far fa-calendar-check fa-2x"></i></button>
+                          </form>
+                      </td>
+
+
+                      <td>
+                          <!-- Button trigger modal -->
+                          <button type="button" class="btn {% if item.is_approved %} btn-success {% else %} btn-danger {% endif %}" data-toggle="modal"
+                                  data-target="#exampleModal{{item.id}}" {% if item.is_approved or item.status == 'DISPUTE' %} disabled {% endif %}>
+                              {% if item.is_approved %} Resolved {% else %} <i class="fas fa-fist-raised fa-2x"></i> {% endif %}
+                          </button>
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1"
+                               aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                      <div class="modal-header text-center">
+                                          <h5 class="modal-title" id="exampleModalLabel">Dispute
+                                              Form</h5>
+                                          <button type="button" class="close" data-dismiss="modal"
+                                                  aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <form action="{% url 'core:raise-dispute' %}" method="post" id="form{{item.id}}" class="form">
+                                              {% csrf_token %}
+                                              <input type="hidden" name="payrollId" value="{{item.id}}">
+                                              <input type="hidden" name="disputeStatus" value="DISPUTE">
+                                              <input type="hidden" name="disputeId" value="{{item.dispute_id}}">
+                                              <div class="form-group">
+                                                  <div class="row row mx-2">
+                                                      <div class="col-lg-6 text-center">
+                                                          <label>Dispute Type</label>
+                                                  <select class="custom-select my-1 mr-sm-2"
+                                                      id="disputeSelect" name="disputeType"
+                                                      {% if item.is_approved %} disabled {% endif %}>
+                                                  <option value="None">Choose...</option>
+                                                  <option value="CP_IT" {% if item.type == 'CP_IT' %}selected {% endif %}>CP IT</option>
+                                                      <option value="COACH_TRAIN" {% if item.type == 'COACH_TRAIN' %} selected {% endif %}>Coaching/Training </option>
+                                                      <option value="CLIENT_IT" {% if item.type == 'CLIENT_IT' %} selected {% endif %}>Client IT</option>
+                                                  </select>
+                                                      </div>
+                                                      <div class="col-lg-6 text-center">
+                                                          <label>Disputed Time (mins)</label>
+                                                          <input type="number" min="0" name="dispute_time" class="form-control"  placeholder="Dispute time.."  width="10" value="{{item.dispute_time}}"  {% if item.is_approved %} disabled {% endif %} required>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="form-group mx-2">
+                                                  <textarea name="emp_comment"
+                                                            id="emp_comment{{item.id}}"
+                                                            cols="30"
+                                                            rows="10"
+                                                            placeholder="Comments"
+                                                            class="form-control"></textarea>
+                                              </div>
+                                          </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary"
+                                                  data-dismiss="modal">Cancel
+                                          </button>
+                                          <button type="submit" form="form{{item.id}}" class="btn btn-primary">
+                                              Raise Dispute
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </td>
+
+                      <td class="text-center">
+                          {% if item.type == 'CP_IT' %}
+                              CP IT
+                          {% elif item.type == 'COACH_TRAIN' %}
+                              Coaching/Training
+                          {% elif item.type == 'CLIENT_IT' %}
+                              Client IT
+                          {% else %}
+                              N/A
+                          {% endif %}
+                      </td>
+                      <td class="text-center">
+                          {% if item.dispute_time %}
+                              {{item.dispute_time}}
+                          {% else %}
+                              N/A
+                          {% endif %}
+                      </td>
+
+                      <td>
+                          <h4>
+                              <span class="
+                              {% if item.status == 'NEW' %}
+                              badge badge-info badge-pill
+                              {% elif item.status == 'YES' %}
+                              badge badge-success badge-pill
+                              {% elif item.status == 'NO' %}
+                              badge badge-danger badge-pill
+                              {% else %}
+                              badge badge-warning badge-pill
+                              {% endif %}
+                               ">{{item.status}}</span>
+                          </h4>
+                      </td>
+                      <td>
+                          {% if item.approve_time %}
+                              {{item.approve_time}}
+                          {% else %}
+                              N/A
+                          {% endif %}
+                      </td>
+                      <td>
+                          <textarea  disabled cols="20"
+                                    rows="5">{{item.comment}}</textarea>
+                      </td>
+
+                  </tr>
+
+                  {% endfor %}
+                  <tr class="odd">
+                      <td valign="top" colspan="9" class="dataTables_empty"></td>
+                  </tr>
+                  </tbody>
+            </table>
+
+            {% if res.has_other_pages %}
+            <ul class="pagination">
+                {% if res.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">begin</span>
+                  </a>
+                </li>   {% endif %}
+                
+                {% for n in res.paginator.page_range %}
+                  {% if res.number == n %}
+                    <li class="page-item active">
+                      <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+                    </li>
+                  {% elif n > res.number|add:'-3' and n < res.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                
+                {% if res.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ res.paginator.num_pages }}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">end</span>
+                    </a>
+                  </li>
+                  {% endif %}
+            </ul>
+         {% endif %}
+            </div>
+            
+         
+         </div>
+      </div>
+      
+   </div>
+</section>
+
+{% endblock content %}
+

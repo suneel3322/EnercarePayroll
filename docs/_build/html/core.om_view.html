@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>core.om_view package &#8212; Payroll Tool 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core.supervisor_view package" href="core.supervisor_view.html" />
+    <link rel="prev" title="core.models package" href="core.models.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="core-om-view-package">
+<h1>core.om_view package<a class="headerlink" href="#core-om-view-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-core.om_view.om_view">
+<span id="core-om-view-om-view-module"></span><h2>core.om_view.om_view module<a class="headerlink" href="#module-core.om_view.om_view" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.om_view.om_view.DowntimeApprovalView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.om_view.om_view.</span></span><span class="sig-name descname"><span class="pre">DowntimeApprovalView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.DowntimeApprovalView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<p>Displays the manual downtime added by supervisors for approvals.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.DowntimeApprovalView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.DowntimeApprovalView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches data from downtime tracker table and displays it in a tabular format with accept and decline buttons.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.DowntimeApprovalView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.DowntimeApprovalView.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>As per the action say YES or NO the downtime request is either accepted or declined with remarks and approved by.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.om_view.om_view.DowntimeApprovalView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'downtime_approve.html'</span></em><a class="headerlink" href="#core.om_view.om_view.DowntimeApprovalView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.om_view.om_view.OmAddAgentView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.om_view.om_view.</span></span><span class="sig-name descname"><span class="pre">OmAddAgentView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.OmAddAgentView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<p>Displays a form by which an operations manager can add the new employee.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.OmAddAgentView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.OmAddAgentView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>It returns register page by which operations manager can add an employee.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.OmAddAgentView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.OmAddAgentView.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>It saves the employee data entered from the form, like first, last name, clinet, joining date, zipwire, lob, password,
+password repeat, supervisor, deluxe code. if passwords would not match user is redirected to the register.html page. else 
+saved to the employee and roster table.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.om_view.om_view.OmAddAgentView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'register.html'</span></em><a class="headerlink" href="#core.om_view.om_view.OmAddAgentView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.om_view.om_view.OperationsDisputeView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.om_view.om_view.</span></span><span class="sig-name descname"><span class="pre">OperationsDisputeView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.OperationsDisputeView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<p>Displays the disputes processed by the supervisors end. It shows agent name, disputed hours, comment by agent and supervisor on the page.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.OperationsDisputeView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.OperationsDisputeView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>It redirects the user if role is not operations manager. Contains date filter in the page
+along with a table for dipsutes actioned by supervisors. Whole page is paginated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.OperationsDisputeView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.OperationsDisputeView.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>It processed the post request and save the actions done by OM on the supervisors action.
+If Yes then dispute is approved else it is rejected and redirected with a message on the screen.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.om_view.om_view.OperationsDisputeView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'om_agent_disputes.html'</span></em><a class="headerlink" href="#core.om_view.om_view.OperationsDisputeView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.om_view.om_view.OperationsDisputeView.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Operations|Payroll</span> <span class="pre">Logs'</span></em><a class="headerlink" href="#core.om_view.om_view.OperationsDisputeView.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.om_view.om_view.OperationsManagerView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.om_view.om_view.</span></span><span class="sig-name descname"><span class="pre">OperationsManagerView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.OperationsManagerView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<p>Displays the Dashboard of Operations Manager along with other metrics</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.OperationsManagerView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.OperationsManagerView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>It Display agent count, supervisor count, dipsute raised, approved dispute, declined dipsute metrics in a card layout</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.OperationsManagerView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.OperationsManagerView.post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.om_view.om_view.OperationsManagerView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dashboard.html'</span></em><a class="headerlink" href="#core.om_view.om_view.OperationsManagerView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.om_view.om_view.PasswordResetView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.om_view.om_view.</span></span><span class="sig-name descname"><span class="pre">PasswordResetView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.PasswordResetView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<p>Helps to reset the password for agents or employees in the current operations manager only.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.PasswordResetView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.PasswordResetView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a list of all the active employees under a manager, with action buttons on the right of it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.PasswordResetView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.PasswordResetView.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>It checks for the password authenticity if they are same then the new password is saved for the employee.
+Page is then redirected to reset password again with a message.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.om_view.om_view.PasswordResetView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'rest_password.html'</span></em><a class="headerlink" href="#core.om_view.om_view.PasswordResetView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.om_view.om_view.ProcessAutoDowntimeView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.om_view.om_view.</span></span><span class="sig-name descname"><span class="pre">ProcessAutoDowntimeView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.ProcessAutoDowntimeView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<p>This displays all the downtimes automatically which were there in the payroll list of the employee.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.ProcessAutoDowntimeView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.ProcessAutoDowntimeView.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches downtime from SP and populates the table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.om_view.om_view.ProcessAutoDowntimeView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.ProcessAutoDowntimeView.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>It either approves or declines the downtime and saves it to the payroll table.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.om_view.om_view.ProcessAutoDowntimeView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'downtime_index.html'</span></em><a class="headerlink" href="#core.om_view.om_view.ProcessAutoDowntimeView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.om_view.om_view.change_supervisor_lob">
+<span class="sig-prename descclassname"><span class="pre">core.om_view.om_view.</span></span><span class="sig-name descname"><span class="pre">change_supervisor_lob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.change_supervisor_lob" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to change the supervisor for employees when required.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.om_view.om_view.gen_report">
+<span class="sig-prename descclassname"><span class="pre">core.om_view.om_view.</span></span><span class="sig-name descname"><span class="pre">gen_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.om_view.om_view.gen_report" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a csv file with [‘Date’,’Agent Name’,’Deluxe Code’,’To be paid’,’Location’,’LOB’,’Break’,’Lunch’,’Not Ready’,’Coaching’,’Training’] columns</p>
+</dd></dl>
+
+</section>
+<section id="module-core.om_view">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.om_view" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="modules.html">Payroll Tool</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="RevenuePayroll.html">RevenuePayroll package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="core.html">core package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="core.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="core.agent_view.html">core.agent_view package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.finance_view.html">core.finance_view package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.login_view.html">core.login_view package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.migrations.html">core.migrations package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.models.html">core.models package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">core.om_view package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-core.om_view.om_view">core.om_view.om_view module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-core.om_view">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.supervisor_view.html">core.supervisor_view package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.templatetags.html">core.templatetags package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.utils.html">core.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.admin">core.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.apps">core.apps module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.tests">core.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.urls">core.urls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.views">core.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#module-core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manage.html">manage module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">run module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="modules.html">Documentation overview</a><ul>
+  <li><a href="core.html">core package</a><ul>
+      <li>Previous: <a href="core.models.html" title="previous chapter">core.models package</a></li>
+      <li>Next: <a href="core.supervisor_view.html" title="next chapter">core.supervisor_view package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Ankit Kumar Dubey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/core.om_view.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

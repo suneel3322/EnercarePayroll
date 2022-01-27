@@ -1,0 +1,62 @@
+.loader-spinner {
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%; }
+
+.spinner-grow {
+  position: absolute;
+  top: 26%;
+  left: 43%;
+  width: 4rem;
+  height: 4rem; }
+
+.vdp-datepicker .form-control[readonly] {
+  background-color: transparent; }
+
+/**
+Re-styling Vue-Date Picker
+ */
+.vdp-datepicker__calendar .cell.selected, .vdp-datepicker__calendar .cell.selected:hover {
+  border-radius: 4px !important;
+  background-color: #4a90e2 !important;
+  color: #fff; }
+
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover, .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover, .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover {
+  border: 1px solid transparent !important;
+  border-radius: 4px !important;
+  background-color: #f2f4f6; }
+
+.vdp-datepicker__calendar {
+  border-radius: 4px;
+  box-shadow: 0 0 15px 0 rgba(115, 130, 149, 0.25);
+  border: solid 1px #AEB8C2 !important;
+  margin-top: 5px;
+  padding: 2px; }
+
+.vdp-datepicker__calendar .cell.day-header {
+  border-top: 1px solid #e5e9ed;
+  border-bottom: 1px solid #e5e9ed;
+  border-left: none !important;
+  border-right: none !important; }
+
+.vdp-datepicker__calendar .cell {
+  border-left: 1px solid transparent !important;
+  border-right: 1px solid transparent !important; }
+
+.vdp-datepicker__calendar header {
+  line-height: 45px !important; }
+
+.vdp-datepicker__calendar {
+  color: #667586 !important; }
+
+.vdp-datepicker__calendar header span {
+  color: #4a90e2;
+  font-weight: bold; }
+
+.vdp-datepicker__calendar header .prev:after {
+  border-right: 10px solid #AEB8C2 !important; }
+
+.vdp-datepicker__calendar header .next:after {
+  border-left: 10px solid #AEB8C2 !important; }

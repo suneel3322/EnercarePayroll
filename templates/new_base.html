@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from themicon.co/theme/angle/v4.5/static-html/app/dashboard_h.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Aug 2019 13:12:03 GMT -->
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   <meta name="description" content="Bootstrap Admin App">
+   <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
+   <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.jpg' %}">
+   <title>
+       
+       {% block title %}
+           
+       {% endblock title %}
+           
+   </title><!-- =============== VENDOR STYLES ===============-->
+   <!-- FONT AWESOME-->
+   <link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/brands.css' %}">
+   <link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/regular.css' %}">
+   <link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/solid.css' %}">
+   <link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/fontawesome.css' %}"><!-- SIMPLE LINE ICONS-->
+   <link rel="stylesheet" href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}"><!-- ANIMATE.CSS-->
+   <link rel="stylesheet" href="{% static 'vendor/animate.css/animate.css' %}"><!-- WHIRL (spinners)-->
+   <link rel="stylesheet" href="{% static 'vendor/whirl/dist/whirl.css' %}"><!-- =============== PAGE VENDOR STYLES ===============-->
+   <!-- WEATHER ICONS-->
+   <link rel="stylesheet" href="{% static 'vendor/weather-icons/css/weather-icons.css' %}"><!-- =============== BOOTSTRAP STYLES ===============-->
+   
+   <link rel="stylesheet" href="{% static 'vendor/jquery-bootgrid/dist/jquery.bootgrid.css' %}" id="bscss"><!-- =============== APP STYLES ===============-->
+   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" id="bscss"><!-- =============== APP STYLES ===============-->
+   <link rel="stylesheet" href="{% static 'css/app.css' %}" id="maincss">
+</head>
+
+<body class="">
+   <div class="wrapper">
+      {% include 'navbar.html' %}
+      {% block content %}
+         
+      
+      {% endblock content %}
+   </div>
+
+<!-- =============== VENDOR SCRIPTS ===============-->
+   <!-- MODERNIZR-->
+   <script src="{% static 'vendor/modernizr/modernizr.custom.js' %}"></script><!-- STORAGE API-->
+   <script src="{% static 'vendor/js-storage/js.storage.js' %}"></script><!-- SCREENFULL-->
+   <script src="{% static 'vendor/screenfull/dist/screenfull.js' %}"></script><!-- i18next-->
+   <script src="{% static 'vendor/i18next/i18next.js' %}"></script>
+   <script src="{% static 'vendor/i18next-xhr-backend/i18nextXHRBackend.js' %}"></script>
+   <script src="{% static 'vendor/jquery/dist/jquery.js' %}"></script>
+   <script src="{% static 'vendor/popper.js/dist/umd/popper.js' %}"></script>
+   <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.js' %}"></script><!-- =============== PAGE VENDOR SCRIPTS ===============-->
+   <!-- SPARKLINE-->
+   <script src="{% static 'vendor/jquery-sparkline/jquery.sparkline.js' %}"></script><!-- FLOT CHART-->
+   <script src="{% static 'vendor/flot/jquery.flot.js' %}"></script>
+   <script src="{% static 'vendor/jquery.flot.tooltip/js/jquery.flot.tooltip.js' %}"></script>
+   <script src="{% static 'vendor/flot/jquery.flot.resize.js' %}"></script>
+   <script src="{% static 'vendor/flot/jquery.flot.pie.js' %}"></script>
+   <script src="{% static 'vendor/flot/jquery.flot.time.js' %}"></script>
+   <script src="{% static 'vendor/flot/jquery.flot.categories.js' %}"></script>
+   <script src="{% static 'vendor/jquery.flot.spline/jquery.flot.spline.js' %}"></script><!-- EASY PIE CHART-->
+   <script src="{% static 'vendor/easy-pie-chart/dist/jquery.easypiechart.js' %}"></script><!-- MOMENT JS-->
+   <script src="{% static 'vendor/moment/min/moment-with-locales.js' %}"></script><!-- =============== APP SCRIPTS ===============-->
+   <script src="{% static 'js/app.js' %}"></script>
+   <script src="{% static 'js/notify.js' %}"></script>
+   
+   
+   {% if messages %}
+      
+      {% for message in messages %}
+         <script>
+            $.notify(
+               "{{message}}",
+            "{{message.tags}}"
+        );
+         </script>
+      {% endfor %}
+         
+   {% endif %}
+      
+   
+   {% block customJs %}
+      
+   {% endblock customJs %}
+
+   
+   {% if request.user.email is None %}
+   <script>
+      $(
+         function(){
+            $('#emailCheck').modal({
+           'show': true
+        });
+         }
+      );
+   </script>
+   {% endif %}
+
+   
+   {% if request.user.role == 'FIN' %}
+      <script>
+         $('#client').focusout(function (e){
+            e.preventDefault();
+            // get the lob from modal dropdown
+            let client = $(this).val();
+            // GET AJAX request
+            $.ajax({
+               type:'GET',
+               url: "{% url 'core:get_ajax_client' %}",
+               data: {"client":client},
+               success: function (resp){
+                  // if not a client, alert the user
+                  if(!resp["lob"]){
+                     alert("Server is busy... Please try again!");
+                     let LOB = $('#client');
+                     LOB.val("");
+                     LOB.focus();
+                  }else{
+                     $('#lob').empty();
+                     resp.lob.forEach((item) => {
+                        $('#lob').append(`<option value="${item}">${item}</option>`);
+                     });
+                  }
+               },
+               error: function(resp){
+                  console.log(resp);
+               }
+            });
+         });
+      </script>
+   {% endif %}
+      
+      
+      
+</body>
+
+</html>

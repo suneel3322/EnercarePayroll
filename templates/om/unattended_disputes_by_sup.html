@@ -1,0 +1,56 @@
+{% extends 'new_base.html' %}
+{% load static %}
+{% load remove_dot %}
+
+
+{% block title %}
+{{title|default:'Unattened Disputes'}}
+{% endblock title %}
+
+
+{% block content %}
+
+    <!-- Main section-->
+    <section class="section-container">
+        <!-- Page content-->
+        <div class="content-wrapper">
+           <div class="content-heading">
+              <div>Unattened Disputes by Supervisor/ Team Lead<small>Below cards show supervisor's with total disputes unattended in last 3 days.</small></div>
+           </div>
+           <!-- DATATABLE DEMO -->
+        <div class="row">
+            <div class="card-group">
+                
+                {% for item in unattended_dispute_lst %}
+                    
+                <div class="col-4">
+                    <div class="card text-center mb-3 mr-3">
+                        <div class="card-header">
+                            <i class="fas fa-id-badge fa-7x"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{item.supervisor|remove_dot}}</h5>
+                            <p class="card-text"><hr></p>
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="{{request.path}}?q={{item.supervisor}}" class="btn btn-link">View More</a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="btn"><span class="badge badge-info">{{item.dispute_count}}</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted">
+                            {{request.user.getClient}}
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+           
+        </div>
+     </section>
+
+{% endblock content %}

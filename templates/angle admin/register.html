@@ -1,0 +1,107 @@
+{% extends 'new_base.html' %}
+{% load static %}
+{% load remove_dot %}
+
+{% block title %}
+Welcome {{ request.user.loginId }}
+{% endblock title %}
+
+{% block content %}
+<!-- Main section-->
+<section class="section-container">
+   <!-- Page content-->
+   <div class="content-wrapper">
+    <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                         style="background-image: url(&quot;{% static 'add_agent/agent.jpg' %}&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Create an Agent!</h4>
+                        </div>
+                        <form action="" method="post" class="user">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                    <input class="form-control form-control-user" type="text" id="firstname"
+                                           aria-describedby="" placeholder="First Name" name="firstname" autocomplete="off" required>
+                                </div>
+                                <div class="col-sm-3 mb-3 mb-sm-0">
+                                  <input class="form-control form-control-user" type="text" id="lastname"
+                                         aria-describedby="" placeholder="Last Name" name="lastname" autocomplete="off" required>
+                              </div>
+                                <div class="col-sm-6">
+                                    <input class="form-control form-control-user" type="text" id="deluxe_code"
+                                           aria-describedby="" placeholder="Deluxe Code" name="deluxe_code" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input class="form-control form-control-user" type="text" id="zipwire"
+                                           aria-describedby="emailHelp" placeholder="zipwire" name="zipwire" autocomplete="off" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select name="lob" id="lob" class="form-control" autocomplete="off" required>
+                                        <option value="None" selected>Choose Group...</option>
+                                        {% for it in groups %}
+                                        <option value="{{it.lob}}">{{it.lob}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input class="form-control form-control-user" type="password" id="password1" placeholder="Password" name="password" autocomplete="off" required>
+                                  </div>
+                                <div class="col-sm-6">
+                                    <input class="form-control form-control-user" type="password" id="password2" placeholder="Repeat Password" autocomplete="off" name="password_repeat" required>
+                                  </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-6 mb-3 mb-sm-0">
+                                  <select name="supervisor" id="supervisor" class="form-control" autocomplete="off" required>
+                                      <option value="None" selected>Choose Supervisor...</option>
+                                          {% for it in supervisors %}
+                                      <option value="{{it.pk}}">{{it.loginId|remove_dot}}</option>
+                                          {% endfor %}
+                                  </select>
+                              </div>
+                              <div class="col-sm-3">
+                                  <input type="date" title="Enter agent joining date" autocomplete="off" name="joining_date" id="joining_date" class="form-control" placeholder="yyyy-mm-dd" required>
+                              </div>
+                              <div class="col-sm-3">
+                                <select name="client" id="client" class="form-control" autocomplete="off" required>
+                                    <option value="None" selected>Choose Project...</option>
+                                    {% for name in clients %}
+                                    <option value="{{name.client}}">{{name.client}}</option>
+                                    {% endfor %}
+                                </select>
+                                  <!-- <input type="text" title="Enter Client Info" name="client" id="client" autocomplete="off" class="form-control" placeholder="Project" required> -->
+                              </div>
+                          </div>
+                            <!-- <div class="form-group">
+                                <select name="supervisor" id="supervisor" class="form-control" required>
+                                    <option value="None" selected>Choose Supervisor...</option>
+                                        {# for it in supervisors #}
+                                    <option value="{{it.supervisor}}" selected>{{it.supervisor}}</option>
+                                        {# endfor #}
+                                </select>
+                            </div> -->
+                            <button class="btn btn-primary btn-block text-white btn-user"
+                                    type="submit">Register Agent
+                            </button>
+  
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="below-main-container"></div>
+    </div>
+   </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,93 @@
+{% extends 'new_base.html' %}
+{% load static %}
+{% load remove_dot %}
+
+{% block title %}
+    Approved Payroll Logs
+{% endblock title %}
+    
+
+{% block content %}
+    <!-- Main section-->
+    <section class="section-container">
+        <!-- Page content-->
+        <div class="content-wrapper">
+           <div class="content-heading">
+              <div>Un-attended Payroll Logs<small>Below table contains data of all those employees who have neither approved nor disputed their payroll in last 3 days.</small></div>
+           </div>
+           <!-- DATATABLE DEMO 1-->
+           <div class="card" style="width:max-content;">
+              <div class="card-header">
+                 <div class="card-title">Un-attended Payroll Logs</div>
+                 <div class="text-sm"></div>
+              </div>
+              <div class="card-body" style="width: fit-content;">
+                 
+                 <div class="table bootgrid">
+                    <!-- custom table from the previous project -->
+                 <table class="table table-bordered table-hover" id="bootgrid-command" style="color: black;">
+                    <thead>
+                       <tr role="row" style="background-color: rgba(0, 183, 255, 0.15);word-wrap: normal;">
+                           <th rowspan="2" colspan="1" style="text-align: center;width: max-content;" >Payroll Generated Date
+                           </th>
+                           <th rowspan="2" colspan="1" style="text-align: center;" >Agent Name
+                           </th>
+                       </tr>
+                       </thead>
+                       <tbody>
+                       <!--
+                           For Performance Reasons Content will be served to data tables as JSON
+                       -->
+                       {% for item in not_approved_payroll_list %}
+                       <tr>
+                           <td style="width: max-content;">{{item.startdate}}</td>
+                           <td>{{item.login_id|remove_dot}}</td>
+                       </tr>
+     
+                       {% endfor %}
+                       <tr class="odd">
+                           <td valign="top" colspan="9" class="dataTables_empty"></td>
+                       </tr>
+                       </tbody>
+                 </table>
+     
+                 {% if not_approved_payroll_list.has_other_pages %}
+                 <ul class="pagination">
+                     {% if not_approved_payroll_list.has_previous %}
+                     <li class="page-item">
+                       <a class="page-link" href="?page=1" aria-label="Previous">
+                         <span aria-hidden="true">&laquo;</span>
+                         <span class="sr-only">begin</span>
+                       </a>
+                     </li>   {% endif %}
+                     
+                     {% for n in not_approved_payroll_list.paginator.page_range %}
+                       {% if not_approved_payroll_list.number == n %}
+                         <li class="page-item active">
+                           <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+                         </li>
+                       {% elif n > not_approved_payroll_list.number|add:'-3' and n < not_approved_payroll_list.number|add:'3' %}
+                         <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                       {% endif %}
+                     {% endfor %}
+                     
+                     {% if not_approved_payroll_list.has_next %}
+                       <li class="page-item">
+                         <a class="page-link" href="?page={{ not_approved_payroll_list.paginator.num_pages }}" aria-label="Next">
+                           <span aria-hidden="true">&raquo;</span>
+                           <span class="sr-only">end</span>
+                         </a>
+                       </li>
+                       {% endif %}
+                 </ul>
+              {% endif %}
+                 </div>
+                 
+              
+              </div>
+           </div>
+           
+        </div>
+     </section>
+{% endblock content %}
+    

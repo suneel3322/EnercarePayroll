@@ -1,0 +1,248 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+
+{% block title %}
+    {{title}}
+{% endblock title %}
+    
+
+
+{% block content %}
+<style>
+    .modal-backdrop {
+     /* bug fix - no overlay */    
+     display: none;    
+ }
+ </style>
+ <!-- Main section-->
+ <section class="section-container">
+    <!-- Page content-->
+    <div class="content-wrapper">
+       <!-- DATATABLE DEMO 1-->
+       <div class="card" >
+          <div class="card-header">
+              <div class="row mx-3">
+                <p class="text-primary m-0 font-weight-bold">Open Dispute</p>
+                <div class="row ml-auto">
+                    <form class="form form-inline mr-2" method="get" action="" id="date-filter">
+                        {% csrf_token %}
+                        <div class="input-group mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">From</div>
+                            </div>
+                            <input type="date" name="fdate" id="fdate" class="form-control" />
+                        </div>
+                        <div class="input-group ">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">To</div>
+                            </div>
+                            <input type="date" name="tdate" id="tdate" class="form-control" />
+                        </div>
+                        <a name="filter" id="Filter" onclick="filter();" class="form-control btn btn-primary" style="color: white;">Filter
+                        </a>
+                    </form>
+                    <div class="">
+                        <a name="exportCSV" data-toggle="modal" data-target="#exportCSVModal" data-placement="top" title="Export dispute csv" class="form-control btn btn-primary" style="color: white;"><i class="fas fa-download"></i>
+                        </a>
+                    </div>
+                </div>
+
+              </div>
+             
+          </div>
+          <div class="card-body" style="width: auto;">
+             
+            <table class="table dataTable my-0" id="dataTable">
+                <thead class="text-center">
+                    <tr>
+                        <th rowspan="2" colspan="1">Date</th>
+                        <th rowspan="2" colspan="1">Raised By</th>
+                        <th rowspan="2" colspan="1">Disputed Time <br> (min)</th>
+                        <th rowspan="2" colspan="1">Approved Time <br> (By Supervisor)</th>
+                        <th rowspan="2" colspan="1">Dispute Status</th>
+                        <th rowspan="2" colspan="1">Agent's Comment</th>
+                        <th rowspan="2" colspan="1">Supervisor Comments</th>
+                        <th rowspan="1" colspan="2">Actions</th>
+                    </tr>
+                <tr>
+                    <th>Approve</th>
+                    <th>Decline</th>
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                {% for it in res %}
+                    <tr>
+                        <td>{{it.dispute_date}}</td>
+                        <td><a href="{% url 'core:agent_payroll' it.pk %}" class="btn-link"
+                        >{{it.employee }}</a></td>
+                        <td>{{it.dispute_time|default:'N/A'}}</td>
+                        <td>{{it.approve_time|default:'N/A'}}</td>
+                        <td>{{it.status}}</td>
+                        <td>{{it.emp_comment}}</td>
+                        <td>{{it.comment}}</td>
+                        <!-- <form action="" method="post" id="form{{ it.pk }}"> -->
+                            <input type="hidden" name="dispute_id" value="{{it.pk}}">
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approveTimeModal{{it.pk}}">
+                                    <i class="far fa-calendar-check fa-2x"></i>
+                                </button>
+                            </td>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="approveTimeModal{{it.pk}}" tabindex="-1"
+                                 aria-labelledby="approveTimeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <h5 class="modal-title" id="approveTimeModalLabel">Approve Time</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="" method="post" id="approveTimeForm{{it.pk}}" class="form">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="dispute_id" value="{{it.pk}}">
+                                                <div class="form-group">
+                                                    <div class="row row mx-2">    
+                                                        <input type="number" name="approve_time" id="approve_time" placeholder="approved time" min="0" required class="form-control">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancel
+                                            </button>
+                                            <button type="submit" form="approveTimeForm{{it.pk}}" class="btn btn-primary" name="action" value="YES">
+                                                Approve
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- </form> -->
+                            <td>
+                                <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#exampleModal{{it.pk}}">
+                                    <i class="fas fa-ban fa-2x"></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{it.pk}}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <h5 class="modal-title" id="exampleModalLabel">Reasons</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="" method="post" id="reasonForm{{it.pk}}" class="form">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="dispute_id" value="{{it.pk}}">
+                                                <div class="form-group">
+                                                    <div class="row row mx-2">    
+                                                        <textarea cols="10" rows="10" name="reasonArea" class="form-control"  placeholder="Reason for declining the agent's dispute..."></textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancel
+                                            </button>
+                                            <button type="submit" form="reasonForm{{it.pk}}" class="btn btn-primary" name="action" value="NO">
+                                                Send & Decline
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+          
+          {% if res.has_other_pages %}
+             <ul class="pagination">
+                {% if res.has_previous %}
+                   <li class="paginate_button page-item"><a class="page-link" onclick="pageFilter(this.id);" id="{{ res.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                   <li class="paginate_button page-item disabled"><a class="page-link" href="#"><span>&laquo;</span></a></li>
+                {% endif %}
+                {% for i in res.paginator.page_range %}
+                   {% if res.number == i %}
+                   <li class="paginate_button page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                   {% else %}
+                   <li class="paginate_button page-item"><a class="page-link" onclick="pageFilter(this.id);" id="{{ i }}">{{ i }}</a></li>
+                   {% endif %}
+                {% endfor %}
+                {% if res.has_next %}
+                   <li class="paginate_button page-item"><a class="page-link" onclick="pageFilter(this.id);" id="{{ res.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                <li class="paginate_button page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+                {% endif %}
+             </ul>
+          {% endif %}
+          
+          </div>
+       </div>
+       
+    </div>
+ </section>
+{% endblock content %}
+
+
+{% block customJs %}
+<script>
+
+    function filter(){
+        let fdate = document.getElementById('fdate').value;
+        let tdate = document.getElementById('tdate').value;
+        const filterBtn = document.getElementById('Filter');
+        filterBtn.href = "?fdate="+fdate+"&tdate="+tdate;
+        filterBtn.click();
+    };
+
+    function pageFilter(id){
+        let paginationLinkBtn = document.getElementById(id);
+        console.log(id);
+        let queryString = window.location.search;
+        if (queryString !== ''){
+            const urlParams = new URLSearchParams(queryString);
+            if (urlParams.has("fdate") && urlParams.has("tdate")){
+                if(urlParams.has("page")){
+                    urlParams.set("page",id);
+                }else{
+                    urlParams.set("page",id);
+                }
+                console.log("button clicked");
+                queryString = "?"+urlParams.toString();
+                paginationLinkBtn.href = queryString;
+                paginationLinkBtn.click();
+                return true;
+            }else if (urlParams.has("page")){
+               urlParams.set("page",id);
+               queryString = "?"+urlParams.toString();
+                paginationLinkBtn.href = queryString;
+                paginationLinkBtn.click();
+                return true;
+            }
+        }else{
+            paginationLinkBtn.href = "?page="+id;
+            paginationLinkBtn.click();
+            return true;
+        }
+    };
+
+</script>
+{% endblock customJs %}

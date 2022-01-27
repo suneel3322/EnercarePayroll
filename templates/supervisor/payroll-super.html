@@ -1,0 +1,207 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+
+{% block content %}
+<style>
+   .modal-backdrop {
+      /* bug fix - no overlay */
+      display: none;
+   }
+</style>
+<!-- Main section-->
+<section class="section-container">
+   <!-- Page content-->
+   <div class="content-wrapper">
+      <div class="content-heading">
+         <div>Open Disputes</div>
+      </div>
+      <!-- DATATABLE DEMO 1-->
+      <div class="card" >
+         <div class="card-header">
+            <div class="row mx-3">
+               <p class="text-primary m-0 font-weight-bold">Open Disputes</p>
+               <div class="row ml-auto">
+                  <form class="form form-inline mr-2" method="get" action="" id="date-filter">
+                     {% csrf_token %}
+                     <div class="input-group mr-sm-2">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">From</div>
+                        </div>
+                        <input type="date" name="fdate" id="fdate" class="form-control" />
+                     </div>
+                     <div class="input-group ">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">To</div>
+                        </div>
+                        <input type="date" name="tdate" id="tdate" class="form-control" />
+                     </div>
+                     <a name="filter" id="Filter" onclick="filter();" class="form-control btn btn-primary"
+                        style="color: white;">Filter
+                     </a>
+                  </form>
+               </div>
+
+               <form class="form form-inline" method="get" action="" id="search">
+                   <!-- <input type="search" name="q" id="q" class="form-control" placeholder="Search" />
+                   <input type="submit" name="search" value="Search" class="form-control btn btn-primary"> -->
+               </form>
+            </div>
+         </div>
+         <div class="card-body" style="width: auto;">
+
+            <table class="table dataTable w-100 no-footer">
+               <thead>
+                  <tr role="row">
+                     <th rowspan="2" colspan="1">By Agent
+                     </th>
+                     <th rowspan="2" colspan="1">Dispute Date
+                     </th>
+                     <th rowspan="2" colspan="1">Type
+                     </th>
+                     <th rowspan="2" colspan="1">Agent's
+                        Comment
+                     </th>
+                     <th rowspan="2" colspan="1">Disputed Time
+                     </th>
+                     <th style="text-align: center;" rowspan="2" colspan="1">Status
+                     </th>
+                     <th style="text-align: center;" rowspan="2" colspan="1">Approve Time <br> (min)
+                     </th>
+                     <th style="text-align: center;" rowspan="2" colspan="1">Comments
+                     </th>
+                     <th style="text-align: center;" rowspan="2" colspan="1">Actions
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <!--
+                  For Performance Reasons Content will be served to data tables as JSON
+               -->
+                  {% for item in res %}
+                  <tr>
+                     <td><a href="{% url 'core:super_agent_payroll' item.pk %}" class="btn-link">{{item.employee|title}}</a></td>
+                     <td>{{item.dispute_date}}</td>
+                     <td>{% if item.type == 'CP_IT' %}
+                        CP IT
+                        {% elif item.type == 'COACH_TRAIN' %}
+                        Coaching/Training
+                        {% else %}
+                        Client IT
+                        {% endif %}
+                     </td>
+                     <td>{{item.emp_comment|default:'N/A'}}</td>
+                     <td>{{item.dispute_time}}</td>
+                     <td>{{item.status}}</td>
+                     <form action="" method="post" id="payroll_form{{item.pk}}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{item.pk}}">
+                        <td>
+                           <input class="form-control" type="number" min="0" name="approve_time">
+                        </td>
+                        <td>
+                           <textarea class="form-control" name="comment" cols="40" rows="5">{{item.comment|default:''}}</textarea>
+                        </td>
+                        <td>
+                           <div class="row">
+                              <div class="col my-2 mx-2">
+                                 <button type="submit" form="payroll_form{{item.pk}}" value="YES" class="btn btn-success" name="action">
+                                    <i class="far fa-calendar-check fa-2x"></i></button>
+                              </div>
+                              <div class="col my-2 mx-2">
+                                 <button type="submit" value="NO" form="payroll_form{{item.pk}}" class="btn btn-danger" name="action">
+                                    <i class="fas fa-ban fa-2x"></i></button>
+                              </div>
+                           </div>
+                        </td>
+                     </form>
+                  </tr>
+
+                  {% endfor %}
+                  <tr class="odd">
+                     <td valign="top" colspan="9" class="dataTables_empty"></td>
+                  </tr>
+               </tbody>
+            </table>
+
+            {% if res.has_other_pages %}
+            <ul class="pagination">
+               {% if res.has_previous %}
+               <li class="paginate_button page-item"><a class="page-link" onclick="pageFilter(this.id);"
+                     id="{{ res.previous_page_number }}">&laquo;</a></li>
+               {% else %}
+               <li class="paginate_button page-item disabled"><a class="page-link" href="#"><span>&laquo;</span></a></li>
+               {% endif %}
+               {% for i in res.paginator.page_range %}
+               {% if res.number == i %}
+               <li class="paginate_button page-item active"><span class="page-link">{{ i }} <span
+                        class="sr-only">(current)</span></span></li>
+               {% else %}
+               <li class="paginate_button page-item"><a class="page-link" onclick="pageFilter(this.id);"
+                     id="{{ i }}">{{ i }}</a></li>
+               {% endif %}
+               {% endfor %}
+               {% if res.has_next %}
+               <li class="paginate_button page-item"><a class="page-link" onclick="pageFilter(this.id);"
+                     id="{{ res.next_page_number }}">&raquo;</a></li>
+               {% else %}
+               <li class="paginate_button page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+               {% endif %}
+            </ul>
+            {% endif %}
+
+         </div>
+      </div>
+
+   </div>
+</section>
+
+{% endblock content %}
+
+{% block customJs %}
+<script>
+   function filter() {
+      let fdate = document.getElementById('fdate').value;
+      let tdate = document.getElementById('tdate').value;
+      const filterBtn = document.getElementById('Filter');
+      filterBtn.href = "?fdate=" + fdate + "&tdate=" + tdate;
+      filterBtn.click();
+   };
+
+   function pageFilter(id){
+        let paginationLinkBtn = document.getElementById(id);
+        console.log(id);
+        let queryString = window.location.search;
+        if (queryString !== ''){
+            const urlParams = new URLSearchParams(queryString);
+            if (urlParams.has("fdate") && urlParams.has("tdate")){
+                if(urlParams.has("page")){
+                    urlParams.set("page",id);
+                }else{
+                    urlParams.set("page",id);
+                }
+                console.log("button clicked");
+                queryString = "?"+urlParams.toString();
+                paginationLinkBtn.href = queryString;
+                paginationLinkBtn.click();
+                return true;
+            }else if (urlParams.has("page")){
+               urlParams.set("page",id);
+               queryString = "?"+urlParams.toString();
+                paginationLinkBtn.href = queryString;
+                paginationLinkBtn.click();
+                return true;
+            }
+        }else{
+            paginationLinkBtn.href = "?page="+id;
+            paginationLinkBtn.click();
+            return true;
+        }
+    };
+</script>
+{% endblock customJs %}

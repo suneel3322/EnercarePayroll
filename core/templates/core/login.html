@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from themicon.co/theme/angle/v4.5/static-html/app/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Aug 2019 13:13:31 GMT -->
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   <meta name="description" content="Bootstrap Admin App">
+   <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
+   <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.jpg' %}">
+   <title>Contact Point 360 Solutions</title><!-- =============== VENDOR STYLES ===============-->
+   <!-- FONT AWESOME-->
+   <link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/brands.css' %}">
+   <link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/regular.css' %}">
+   <link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/solid.css' %}">
+   <link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/fontawesome.css' %}"><!-- SIMPLE LINE ICONS-->
+   <link rel="stylesheet" href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}"><!-- =============== BOOTSTRAP STYLES ===============-->
+   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" id="bscss"><!-- =============== APP STYLES ===============-->
+   <link rel="stylesheet" href="{% static 'css/app.css' %}" id="maincss">
+</head>
+
+<body>
+   <div class="wrapper">
+      <div class="block-center mt-4 wd-xl">
+         <!-- START card-->
+         <div class="card card-flat">
+            <div class="card-header text-center bg-white"><a href="#"><img class="block-center rounded" src="{% static 'images/favicon.jpg' %}" width="20%" alt="Image"></a></div>
+            <div class="card-body">
+               <p class="text-center py-2">SIGN IN TO CONTINUE.</p>
+			   
+			   {% if messages %}
+				   {% include 'messages.html' %}
+			   {% endif %}
+				   
+               <form class="mb-3" id="loginForm" method="POST" action="{% url 'core:login' %}" novalidate>
+				   {% csrf_token %}
+                  <div class="form-group">
+                     <div class="input-group with-focus">
+						 <input class="form-control border-right-0" name="username" id="exampleInputEmail1" type="text" placeholder="Enter Network id" autocomplete="off" required>
+                        <div class="input-group-append"><span class="input-group-text text-muted bg-transparent border-left-0"><em class="fa fa-envelope"></em></span></div>
+                     </div>
+                  </div>
+				  <div class="form-group">
+					<div class="input-group with-focus">
+						<select name="role" id="role" class="form-control border-right-0" aria-required="true" required>
+							<option value="None" selected>Select Role...</option>
+							<option value="AGT">Agent</option>
+							<option value="OPER_MAN">Operations Manager</option>
+							<option value="TEAM_SUP">Team lead/Supervisor</option>
+							<option value="FIN">Finance</option>
+						</select>
+					   <div class="input-group-append">
+						   <span class="input-group-text text-muted bg-transparent border-left-0">
+							   <i class="fas fa-user-tag"></i>
+							</span>
+						</div>
+					</div>
+				 </div>
+             <div class="form-group">
+					<div class="input-group with-focus">
+						<select name="client" id="client" class="form-control border-right-0" aria-required="true" required>
+							<option value="None" selected>Select Project...</option>
+                     {% for client in clients %}
+                        <option value="{{client}}">{{client}}</option>
+                     {% endfor %}
+						</select>
+					   <div class="input-group-append">
+						   <span class="input-group-text text-muted bg-transparent border-left-0">
+							   <i class="fas fa-id-badge"></i>
+							</span>
+						</div>
+					</div>
+				 </div>
+                  <div class="form-group">
+                     <div class="input-group with-focus">
+						 <input class="form-control border-right-0" id="exampleInputPassword1" type="password" placeholder="Password" name="password" required>
+                        <div class="input-group-append"><span class="input-group-text text-muted bg-transparent border-left-0"><em class="fa fa-lock"></em></span></div>
+                     </div>
+                  </div>
+                  <div class="clearfix">
+					<div class="text-center>
+						<a class="text-muted" href="#">Forgot your password?</a>
+					</div>
+                  </div>
+				  	<button class="btn btn-block btn-primary mt-3" type="submit">
+					  Login
+					</button>
+               </form>
+               <p class="pt-3 text-center">Need to Signup?</p><a class="btn btn-block btn-secondary" href="#register.html">Register Now</a>
+            </div>
+         </div><!-- END card-->
+         <div class="p-3 text-center"><span class="mr-2">&copy;</span><span><script>document.write(new Date().getFullYear());</script></span><span class="mr-2">-</span><span>ContactPoint360</span><br><span>Solutions By Contact Point 360</span></div>
+      </div>
+   </div><!-- =============== VENDOR SCRIPTS ===============-->
+   <!-- MODERNIZR-->
+   <script src="{% static 'vendor/modernizr/modernizr.custom.js' %}"></script><!-- STORAGE API-->
+   <script src="{% static 'vendor/js-storage/js.storage.js' %}"></script><!-- i18next-->
+   <script src="{% static 'vendor/i18next/i18next.js' %}"></script>
+   <script src="{% static 'vendor/i18next-xhr-backend/i18nextXHRBackend.js' %}"></script><!-- JQUERY-->
+   <script src="{% static 'vendor/jquery/dist/jquery.js' %}"></script><!-- BOOTSTRAP-->
+   <script src="{% static 'vendor/popper.js/dist/umd/popper.js' %}"></script>
+   <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.js' %}"></script><!-- PARSLEY-->
+   <script src="{% static 'vendor/parsleyjs/dist/parsley.js' %}"></script><!-- =============== APP SCRIPTS ===============-->
+   <script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>

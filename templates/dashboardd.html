@@ -1,0 +1,504 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/jpg" href="{% static 'images/favicon.jpg' %}">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>{{title|default:'ContactPoint360 Attendence System'}}</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="{% static 'assets/css/animate.min.css' %}" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="{% static 'assets/css/light-bootstrap-dashboard.css' %}" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="{% static 'assets/css/demo.css' %}" rel="stylesheet" />
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="{% static 'assets/css/pe-icon-7-stroke.css' %}" rel="stylesheet" />
+
+</head>
+<body>
+
+<div class="wrapper">
+    
+    {% include 'navbar.html' %}
+
+    <div class="main-panel">
+        {% include 'topbar.html' %}
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+
+                            <div class="header">
+                                <h4 class="title">Agent</h4>
+                                <p class="category">Overall Working & Non-Working Hours of Agents</p>
+                            </div>
+                            <div class="content">
+                                <canvas id="chartPreferences" height="150" width="200" class="ct-chart ct-perfect-fourth"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Agent Leave Hours By Date</h4>
+                                <p class="category">Last 30 days</p>
+                            </div>
+                            <div class="content">
+                                <canvas height="150" width="200" id="chartHoursMonthly" class="ct-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title">Total Working & Non Working Hours</h4>
+                                <p class="category">All Active agents</p>
+                            </div>
+                            <div class="content">
+                                <canvas  height="150" width="200" id="chartActivity" class="ct-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title">Total Working & Non Working Hours</h4>
+                                <p class="category">By Yesterday</p>
+                            </div>
+                            <div class="content">
+                                <canvas  height="150" width="200" id="pieActivity" class="ct-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+                        <li>
+                            <a href="{% url 'agent:dashboard' %}">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://contactpoint360.com/">
+                                Company
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://contactpoint360.com/our-story/">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://contactpoint360.com/blog/">
+                               Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">ContactPoint360</a>, Agent Attendence System &REG;
+                </p>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="{% static 'assets/js/jquery.3.2.1.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/bootstrap.min.js' %}" type="text/javascript"></script>
+
+	<!--  Charts Plugin -->
+	<script src="{% static 'assets/js/chartist.min.js' %}"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="{% static 'assets/js/bootstrap-notify.js' %}"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="{% static 'assets/js/light-bootstrap-dashboard.js' %}"></script>
+
+	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<script src="{% static 'assets/js/demo.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<script type="text/javascript">
+
+function random_bg_color() {
+    var x = Math.floor(Math.random() * 256);
+    var y = Math.floor(Math.random() * 256);
+    var z = Math.floor(Math.random() * 256);
+    var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+    return bgColor;
+}
+    	$(document).ready(function(){
+
+        	// demo.initChartist();
+
+        	$.notify({
+            	icon: 'pe-7s-info',
+            	message: "Welcome to Agent Schedule Maintainer System."
+
+            },{
+                type: 'info',
+                timer: 4000
+            });
+
+            var mychart2 = new Chart(
+    document.getElementById('chartHoursMonthly'),
+    {
+        data:{
+            labels:[
+                {% for item in fulldate %}
+                '{{item|safe}}',
+                {% endfor %}
+            ],
+            datasets:[
+                {
+                    type:'line',
+                    label:'Agents Sick hours',
+                    backgroundColor: 'rgb(252, 186, 3)',
+                    borderColor: 'rgb(252, 186, 3)',
+                    data:[
+                        {% for item in sick %}
+                        {{item|safe}},
+                        {% endfor %}
+                    ],
+                    fill:false,
+                    tension:0.3
+                },
+                {
+                    type:'line',
+                    label:'Agents vacation hours',
+                    backgroundColor: 'rgb(3, 252, 219)',
+                    borderColor: 'rgb(3, 252, 219)',
+                    data:[
+                    {% for item in vacation %}
+                    {{item|safe}},
+                    {% endfor %}
+                    ],
+                    fill:false,
+                    tension:0.3
+                },
+                {
+                    type:'line',
+                    label:'Agents personal hours',
+                    backgroundColor: 'rgb(3, 78, 252)',
+                    borderColor: 'rgb(3, 78, 252)',
+                    data:[
+                    {% for item in personal %}
+                    {{item|safe}},
+                    {% endfor %}
+                    ],
+                    fill:false,
+                    tension:0.3
+                },
+                {
+                    type:'line',
+                    label:'Agents schedule hours',
+                    backgroundColor: 'rgb(198, 3, 252)',
+                    borderColor: 'rgb(198, 3, 252)',
+                    data:[
+                    {% for item in schedule %}
+                    {{item|safe}},
+                    {% endfor %}
+                    ],
+                    fill:false,
+                    tension:0.3
+                }
+            ]
+        },
+        options: {
+            scales:{
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Date',
+                       
+                    }
+                },
+                y:{
+                    display:true,
+                    text: 'Hours',
+                    color: '#252',
+                    font:{
+                        family: 'Helvetica',
+                            size: 20,
+                            weight: 'normal',
+                            lineHeight: 1.2,
+                    },
+                    padding: {
+                            top: 30, 
+                            left: 0, 
+                            right: 0, 
+                            bottom: 0
+                    },
+                    beginAtZero:true
+                }
+            },
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Agents Vacation & Working Hours'
+                },
+                filler: {
+                    propagate: false
+                }
+            },
+
+        }
+    }
+);
+
+var chartPreferences = new Chart(
+    document.getElementById('chartPreferences'),
+    {
+        data:{
+            labels:[
+                {% for item in names %}
+                '{{item|safe}}',
+                {% endfor %}
+            ],
+            datasets:[
+                {
+                    type:'line',
+                    label:'Worked hours',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(252, 119, 3)',
+                    data:[
+                        {% for item in working %}
+                        {{item|safe}},
+                        {% endfor %}
+                    ],
+                    fill:false,
+                    tension:0.3
+                },
+                {
+                    type:'line',
+                    label:'Not Worked hours',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(40, 252, 3)',
+                    data:[
+                    {% for item in non_working %}
+                    {{item|safe}},
+                    {% endfor %}
+                    ],
+                    fill:false,
+                    tension:0.3
+                }
+            ]
+        },
+        options: {
+            scales:{
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Agent Name',
+                       
+                    }
+                },
+                y:{
+                    display:true,
+                    text: 'Hours',
+                    color: '#252',
+                    font:{
+                        family: 'Helvetica',
+                            size: 20,
+                            weight: 'normal',
+                            lineHeight: 1.2,
+                    },
+                    padding: {
+                            top: 30, 
+                            left: 0, 
+                            right: 0, 
+                            bottom: 0
+                    },
+                    beginAtZero:true
+                }
+            },
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Agents Working & Non Working Hours'
+                },
+                filler: {
+                    propagate: false
+                }
+            },
+
+        }
+    }
+);
+
+var chartActivity = new Chart(
+    document.getElementById('chartActivity'),
+    {
+        data:{
+            labels:[
+                {% for item in names %}
+                '{{item|safe}}',
+                {% endfor %}
+            ],
+            datasets:[
+                {
+                    type:'bar',
+                    label:'Non Working Hours',
+                    backgroundColor: [
+                        {% for item in non_working %}
+                        'rgb(252, 3, 103)',
+                        {% endfor %}
+                    ],
+                    borderColor: [
+                        {% for item in non_working %}
+                        'rgb(252, 3, 103)',
+                        {% endfor %}
+                    ],
+                    data:[
+                        {% for item in non_working %}
+                        {{item|safe}},
+                        {% endfor %}
+                    ],
+                    borderWidth:1
+                },
+                {
+                    type:'bar',
+                    label:'Working Hours Hours',
+                    backgroundColor: [
+                        {% for item in working %}
+                        'rgb(3, 177, 252)',
+                        {% endfor %}
+                    ],
+                    borderColor: [
+                        {% for item in working %}
+                        'rgb(3, 177, 252)',
+                        {% endfor %}
+                    ],
+                    data:[
+                        {% for item in working %}
+                        {{item|safe}},
+                        {% endfor %}
+                    ],
+                    borderWidth:1
+                }
+            ]
+        },
+        options: {
+            scales:{
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Agent Name',
+                       
+                    }
+                },
+                y:{
+                    display:true,
+                    text: 'Hours',
+                    color: '#252',
+                    font:{
+                        family: 'Helvetica',
+                            size: 20,
+                            weight: 'normal',
+                            lineHeight: 1.2,
+                    },
+                    padding: {
+                            top: 30, 
+                            left: 0, 
+                            right: 0, 
+                            bottom: 0
+                    },
+                    beginAtZero:true
+                }
+            },
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Agents Working & Non Working Hours'
+                },
+                filler: {
+                    propagate: false
+                }
+            },
+
+        }
+    }
+    );
+
+
+    var pieActivity = new Chart(
+        document.getElementById('pieActivity'),
+        {
+            data:{
+                labels:[
+                    {% for item in pie_name %}
+                    '{{item|safe}}',
+                    {% endfor %}
+                ],
+                datasets:[
+                    {
+                        type: 'pie',
+                        label:'Yesterday working & leave hours',
+                        data:[
+                        {{pie_sick|safe}},{{pie_vacation|safe}},{{pie_personal|safe}},{{pie_schedule|safe}}
+                        ],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(0,255,0)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                        ],
+                        hoverOffset: 4
+                    }
+                ]
+            }
+        }
+    );
+    	});
+	</script>
+
+</html>

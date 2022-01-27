@@ -1,0 +1,81 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+{% block title %}
+Welcome {{request.user.getName}}
+{% endblock title %}
+
+
+{% block content %}
+<!-- Main section-->
+<section class="section-container">
+   <!-- Page content-->
+   <div class="content-wrapper">
+
+
+      <!-- START cards box-->
+      <div class="row">
+         
+         <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START card-->
+            <div class="card bg-info-light pt-2 b0 pb-2">
+               <div class="px-2"><em class="fas fa-users float-right"></em>
+                  <div class="h2 mt-0">
+                     {% if request.user.role == 'FIN' %}
+                        {{request.user.getActiveAgentCount}}
+                     {% else %}
+                        {{agent_count|default:'N/A'}}
+                     {% endif %}
+                  </div>
+                  <div class="text-uppercase">Active Agents</div>
+               </div>
+            </div>
+         </div>
+         
+
+         <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START card-->
+            <div class="card bg-purple-light pt-2 b0 pb-2">
+               <div class="px-2"><em class="fas fa-fist-raised float-right"></em>
+                  <div class="h2 mt-0">{{request.user.getRaisedDispute}}</div>
+                  <div class="text-uppercase">Active Raised Disputes</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START card-->
+            <div class="card bg-info-light pt-2 b0 pb-2">
+               <div class="px-2"><em class="fas fa-clipboard-check float-right"></em>
+                  <div class="h2 mt-0">{{request.user.getApprovedDispute}}</div>
+                  <div class="text-uppercase">Disputes Addressed</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START card-->
+            <div class="card bg-danger-light pt-2 b0 pb-2">
+               <div class="px-2"><em class="fas fa-trash float-right"></em>
+                  <div class="h2 mt-0">{{request.user.getDeclinedDispute}}</div>
+                  <div class="text-uppercase">Disputes Declined</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-xl-3 col-lg-6 col-md-12">
+            <!-- START card-->
+            <div class="card bg-success-light pt-2 b0 pb-2">
+               <div class="px-2"><em class="fas fa-check-double float-right"></em>
+                  <div class="h2 mt-0">{{request.user.getApproved}}</div>
+                  <div class="text-uppercase">Disputes Approved</div>
+               </div>
+            </div>
+         </div>
+
+      </div>
+      <!-- END cards box-->
+
+   </div>
+</section>
+{% endblock content %}

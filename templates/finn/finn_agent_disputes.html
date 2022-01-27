@@ -1,0 +1,308 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+
+
+{% block content %}
+<style>
+    .modal-backdrop {
+        /* bug fix - no overlay */
+        display: none;
+    }
+</style>
+<!-- Main section-->
+<section class="section-container">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <div class="content-heading">
+            <div>Open Dipsutes</div>
+        </div>
+        <!-- DATATABLE DEMO 1-->
+        <div class="card">
+            <div class="card-header">
+                <div class="row mx-3">
+                    <p class="text-primary m-0 font-weight-bold">Open Dipsute&nbsp;{% if qs %}for <strong>{{name|safe}}</strong>
+                        {% endif %}</p>
+                    <div class="row ml-auto">
+                        <form class="form form-inline mr-2" method="get" action="" id="date-filter">
+                            {% csrf_token %}
+                            <div class="input-group mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">From</div>
+                                </div>
+                                <input type="date" name="fdate" id="fdate" class="form-control" />
+                            </div>
+                            <div class="input-group ">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">To</div>
+                                </div>
+                                <input type="date" name="tdate" id="tdate" class="form-control" />
+                            </div>
+                            <a name="filter" id="Filter" onclick="filter();" class="form-control btn btn-primary" style="color: white;">Filter
+                            </a>
+                        </form>
+                        <form class="form form-inline" method="get" action="" id="search">
+                            <input type="search" name="q" id="q" class="form-control" placeholder="Search" />
+                            <input type="submit" name="search" value="Search" class="form-control btn btn-primary">
+                        </form>
+                        <div class="mx-2">
+                            <a name="exportCSV" data-toggle="modal" data-target="#exportCSVModal" data-placement="top" title="Export dispute csv" class="form-control btn btn-primary" style="color: white;"><i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="width: auto;">
+                {% if qs %}
+                <div class="table table-sm" style="width: auto;">
+                    <div id="data_tables_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="data_tables_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-sm no-footer" id="data_tables" role="grid"
+                                                aria-describedby="data_tables_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1" style="width: 42.2969px;"
+                                                            aria-label="ID: activate to sort column descending"
+                                                            aria-sort="ascending">Date
+                                                        </th>
+                                                        <th class="no-wrap sorting" tabindex="0"
+                                                            aria-controls="data_tables" rowspan="2" colspan="1"
+                                                            style="width: 263.297px;"
+                                                            aria-label="Employee: activate to sort column ascending">
+                                                            Login Time
+                                                            (Hrs)
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1" style="width: 195px;"
+                                                            aria-label="Scorecard: activate to sort column ascending">
+                                                            Logout
+                                                            Time (Hrs)
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1" style="width: 195px;"
+                                                            aria-label="Group &amp;amp; Ref.: activate to sort column ascending">
+                                                            Total Login Time (Hrs)
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1" style="width: 195px;"
+                                                            aria-label="Group &amp;amp; Ref.: activate to sort column ascending">
+                                                            Working Time (Hrs)
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1" style="width: 104.875px;"
+                                                            aria-label="Evaluator: activate to sort column ascending">
+                                                            NotReady/Break/Lunch (Hrs)
+                                                        </th>
+                                                        <th style="text-align: center; width: 81.0469px;"
+                                                            class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1"
+                                                            aria-label="Score: activate to sort column ascending"
+                                                            align="center">Coaching/Training (Hrs)
+                                                        </th>
+                                                        <th style="text-align: center; width: 81.0469px;"
+                                                            class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1"
+                                                            aria-label="Score: activate to sort column ascending"
+                                                            align="center">Payroll Time (Hrs)
+                                                        </th>
+                                                        <th style="text-align: center; width: 81.0469px;"
+                                                            class="sorting" tabindex="0" aria-controls="data_tables"
+                                                            rowspan="2" colspan="1"
+                                                            aria-label="Score: activate to sort column ascending"
+                                                            align="center">Status
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!--
+                                       For Performance Reasons Content will be served to data tables as JSON
+                                   -->
+                                                    {% for item in qs %}
+                                                    <tr>
+                                                        <td>{{item.startdate}}</td>
+                                                        <td>{{item.login_time}}</td>
+                                                        <td>{{item.logout_time}}</td>
+                                                        <td>{{item.getTotalLoginTimeInHours}}</td>
+                                                        <td>{{item.getWorkingTimeInHours}}</td>
+                                                        <td>{{item.getLunchBreakNotReadyTimeInHours}}</td>
+                                                        <td>{{item.getCoachingTrainingTimeInHours}}</td>
+                                                        <td>{{item.getPayrollTimeInHours}}</td>
+                                                        <td>
+                                                            <h4>
+                                                                <span class="
+                                               {% if item.status == 'NEW' %}
+                                               badge badge-info badge-pill
+                                               {% elif item.status == 'YES' %}
+                                               badge badge-success badge-pill
+                                               {% elif item.status == 'NO' %}
+                                               badge badge-danger badge-pill
+                                               {% else %}
+                                               badge badge-warning badge-pill
+                                               {% endif %}
+                                                ">{{item.status}}</span>
+                                                            </h4>
+                                                        </td>
+                                                    </tr>
+
+                                                    {% endfor %}
+                                                    <tr class="odd">
+                                                        <td valign="top" colspan="9" class="dataTables_empty"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <table class="table dataTable my-0" id="dataTable">
+                    <thead class="text-center">
+                        <tr>
+                            <th rowspan="2" colspan="1">Date</th>
+                            <th rowspan="2" colspan="1">Raised By</th>
+                            <th rowspan="2" colspan="1">Disputed Time <br> (min)</th>
+                            <th rowspan="2" colspan="1">Approved Time <br> By Supervisor</th>
+                            <th rowspan="2" colspan="1">Dispute Status</th>
+                            <th rowspan="2" colspan="1">Agent's Comment</th>
+                            <th rowspan="2" colspan="1">Supervisor Comments</th>
+                            <th rowspan="1" colspan="2">Actions</th>
+                        </tr>
+                        <tr>
+                            <th>Approve</th>
+                            <th>Decline</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        {% for it in res %}
+                        <tr>
+                            <td>{{it.dispute_date}}</td>
+                            <td><a href="{% url 'core:finn_agent_payroll' it.pk %}" class="btn-link">{{it.employee}}</a>
+                            </td>
+                            <td>{{it.dispute_time|default:'N/A'}}</td>
+                            <td>{{it.approve_time|default:'N/A'}}</td>
+                            <td>{{it.status}}</td>
+                            <td>{{it.emp_comment|default:'N/A'}}</td>
+                            <td>{{it.comment}}</td>
+                            <form action="" method="post" id="form{{it.pk}}" class="form">
+                                {% csrf_token %}
+                                <input type="hidden" name="dispute_id" value="{{it.pk}}">
+                                <td>
+                                    <button class="btn btn-success btn-sm" type="submit" form="form{{it.pk}}"
+                                        name="action" value="YES">Approve
+                                    </button>
+                                </td>
+                            </form>
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#exampleModal{{it.pk}}">
+                                    Decline
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal{{it.pk}}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <h5 class="modal-title" id="exampleModalLabel">Reasons</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="" method="post" id="reasonForm{{it.pk}}" class="form">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="dispute_id" value="{{it.pk}}">
+                                                    <div class="form-group">
+                                                        <div class="row row mx-2">
+                                                            <textarea cols="10" rows="10" name="reasonArea"
+                                                                class="form-control"
+                                                                placeholder="Reason for declining the agent's dispute..."></textarea>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancel
+                                                </button>
+                                                <button type="submit" form="reasonForm{{it.pk}}" class="btn btn-primary"
+                                                    name="action" value="NO">
+                                                    Send & Decline
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                    {% if res.has_other_pages %}
+                    <ul class="pagination">
+                        {% if res.has_previous %}
+                        <li class="paginate_button page-item"><a class="page-link"
+                                href="?page={{ res.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                        <li class="paginate_button page-item disabled"><a class="page-link" href="#"><span>&laquo;</span></a></li>
+                        {% endif %}
+                        {% for i in res.paginator.page_range %}
+                        {% if res.number == i %}
+                        <li class="paginate_button page-item active"><span class="page-link">{{ i }} <span
+                                    class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li class="paginate_button page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if res.has_next %}
+                        <li class="paginate_button page-item"><a class="page-link"
+                                href="?page={{ res.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="paginate_button page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock content %}
+
+{% block customJs %}
+<script>
+
+    function filter(){
+        fdate = document.getElementById('fdate').value;
+        tdate = document.getElementById('tdate').value;
+        filterBtn = document.getElementById('Filter');
+        {% if 'q=' in request.get_full_path %}
+            filterBtn.href = "{{request.get_full_path}}"+"&fdate="+fdate+"&tdate="+tdate;
+        {% else %}
+            alert("Please search first!");
+            return false;
+         {% endif %}
+        filterBtn.click();
+    };
+
+</script>      
+{% endblock customJs %}
+      

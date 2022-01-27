@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Welcome {{ request.user.loginId }}
+{% endblock title %}
+
+{% block content %}
+<main class=" container-fluid px-2">
+
+    <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                         style="background-image: url(&quot;{% static 'add_agent/agent.jpg' %}&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Create an Agent!</h4>
+                        </div>
+                        <form action="" method="post" class="user">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input class="form-control form-control-user" type="text" id="name"
+                                           aria-describedby="" placeholder="Name" name="name" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input class="form-control form-control-user" type="text" id="deluxe_code"
+                                           aria-describedby="" placeholder="Deluxe Code" name="deluxe_code" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input class="form-control form-control-user" type="text" id="zipwire"
+                                           aria-describedby="emailHelp" placeholder="zipwire" name="zipwire" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select name="lob" id="lob" class="form-control" required>
+                                        <option value="None" selected>Choose Group...</option>
+                                        {% for it in groups %}
+                                        <option value="{{it.lob}}" selected>{{it.lob}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user"
+                                                                          type="password" id="password1"
+                                                                          placeholder="Password" name="password" required></div>
+                                <div class="col-sm-6"><input class="form-control form-control-user" type="password"
+                                                             id="password2"
+                                                             placeholder="Repeat Password" name="password_repeat"
+                                                             required></div>
+                            </div>
+                            <div class="form-group">
+                                <select name="supervisor" id="supervisor" class="form-control" required>
+                                    <option value="None" selected>Choose Supervisor...</option>
+                                        {% for it in supervisors %}
+                                    <option value="{{it.supervisor}}" selected>{{it.supervisor}}</option>
+                                        {% endfor %}
+                                </select>
+                            </div>
+                            <button class="btn btn-primary btn-block text-white btn-user"
+                                    type="submit">Register Agent
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="below-main-container"></div>
+    </div>
+</main>
+{% endblock content %}

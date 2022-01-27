@@ -1,0 +1,59 @@
+.numericRow {
+  display: none; }
+
+.score-link {
+  color: white; }
+
+.score-link:hover {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.1); }
+
+.nav-link#submit_deleteResult:hover i {
+  color: #fc5160; }
+
+.nav-link#submit_reviewBtn:hover i {
+  color: #39cd8f; }
+
+.fa-check-square-o {
+  color: #1d2937;
+  font-size: 16px;
+  padding-left: 21px; }
+
+.fa-square-o {
+  color: #1d2937;
+  font-size: 16px;
+  padding-left: 21px; }
+
+.report-table td {
+  color: #667586; }
+
+.report-table td:first-child {
+  width: 55px; }
+
+.report-table td:nth-child(2) {
+  color: #1d2937;
+  font-weight: 500; }
+
+.report-table.sub-heading {
+  font-weight: 600;
+  color: #738295; }
+
+.comment-icon {
+  color: #667586;
+  font-size: 20px;
+  font-weight: 500; }
+
+.comment-icon:hover {
+  color: #1d2937; }
+
+.modal-title img {
+  width: 55px;
+  border-radius: 50%;
+  vertical-align: middle;
+  border-style: none; }
+
+.general-reports th, .general-reports td {
+  text-align: center; }
+
+.general-reports th:nth-child(-n + 2), .general-reports td:nth-child(-n + 2) {
+  text-align: left; }

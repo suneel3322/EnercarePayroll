@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Welcome {{ request.user.loginId }}
+{% endblock title %}
+
+{% block content %}
+<main class=" container-fluid px-2 ">
+    <div class="main-container mt-3">
+        <section>
+            <div class="section-header d-flex">
+                <h3 class="flex-grow-1">Dispute Logs<sub>{{request.user.loginId}}</sub></h3>
+            </div>
+        </section>
+
+
+        <div class="table-responsive">
+            <div id="data_tables_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="data_tables_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table dataTable w-100 no-footer" id="data_tables" role="grid"
+                                           aria-describedby="data_tables_info" style="width: 1502px;">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="data_tables"
+                                                rowspan="2" colspan="1" style="width: 42.2969px;"
+                                                aria-label="ID: activate to sort column descending"
+                                                aria-sort="ascending">By Agent
+                                            </th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="data_tables"
+                                                rowspan="2" colspan="1" style="width: 42.2969px;"
+                                                aria-label="ID: activate to sort column descending"
+                                                aria-sort="ascending">Dispute Date
+                                            </th>
+                                            <th class="no-wrap sorting" tabindex="0" aria-controls="data_tables"
+                                                rowspan="2" colspan="1" style="width: 263.297px;"
+                                                aria-label="Employee: activate to sort column ascending">Type
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="data_tables" rowspan="2"
+                                                colspan="1" style="width: 195px;"
+                                                aria-label="Scorecard: activate to sort column ascending">Disputed Time
+                                            </th>
+                                            <th style="text-align: center; width: 81.0469px;" class="sorting"
+                                                tabindex="0" aria-controls="data_tables" rowspan="2" colspan="1"
+                                                aria-label="Score: activate to sort column ascending"
+                                                align="center">Status
+                                            </th>
+                                            <th style="text-align: center; width: 81.0469px;" class="sorting"
+                                                tabindex="0" aria-controls="data_tables" rowspan="2" colspan="1"
+                                                aria-label="Score: activate to sort column ascending"
+                                                align="center">Approve Time (min)
+                                            </th>
+                                            <th style="text-align: center; width: 81.0469px;" class="sorting"
+                                                tabindex="0" aria-controls="data_tables" rowspan="2" colspan="1"
+                                                aria-label="Score: activate to sort column ascending"
+                                                align="center">Comments
+                                            </th>
+                                            <th style="text-align: center; width: 81.0469px;" class="sorting"
+                                                tabindex="0" aria-controls="data_tables" rowspan="2" colspan="1"
+                                                aria-label="Score: activate to sort column ascending"
+                                                align="center">Actions
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!--
+                                            For Performance Reasons Content will be served to data tables as JSON
+                                        -->
+                                        {% for item in res %}
+                                        <tr>
+                                            <td>{{item.employee|title}}</td>
+                                            <td>{{item.dispute_date}}</td>
+                                            <td>{% if item.type == 'CP_IT' %}
+                                                CP IT
+                                                {% elif item.type == 'COACH_TRAIN' %}
+                                                Coaching/Training
+                                                {% else %}
+                                                Client IT
+                                                {% endif %}
+                                            </td>
+                                            <td>{{item.dispute_time}}</td>
+                                            <td>{{item.status}}</td>
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="pk" value="{{item.pk}}">
+                                                <td>
+                                                    <input type="number" min="0" name="approve_time" >
+                                                </td>
+                                                <td>
+                                                    <textarea name="comment" cols="40" rows="5">{{item.comment|default:''}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <button type="submit" value="YES" class="btn" name="action">
+                                                    <i class="bi bi-check-lg" style="font-size:2rem; color: green;"></i>
+                                                        APPROVE
+                                                    </button>
+                                                    <button type="submit" value="NO" class="btn" name="action">
+                                                    <i class="bi bi-stop-circle" style="font-size:2rem; color: red;"></i>
+                                                        DECLINE
+                                                    </button>
+                                                </td>
+                                            </form>
+                                        </tr>
+
+                                        {% endfor %}
+                                        <tr class="odd">
+                                            <td valign="top" colspan="9" class="dataTables_empty"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="below-main-container"></div>
+</main>
+{% endblock content %}

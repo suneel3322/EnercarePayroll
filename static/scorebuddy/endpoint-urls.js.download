@@ -1,0 +1,7 @@
+let endpointUrls = {
+    FILTERING_CHANGES_GET: 'get-fns/custom-dashboards/get_filtering_options.php',
+    REPORT_DATA_GET: 'get-fns/custom-dashboards/get_report_data.php',
+    REPORTS_GET: 'get-fns/custom-dashboards/reports.php?route=getReportsData',
+    REPORTS_POST: 'get-fns/custom-dashboards/reports.php?route=persistUserData',
+};
+window.EndpointUrls = endpointUrls;

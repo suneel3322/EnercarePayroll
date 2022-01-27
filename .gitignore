@@ -1,0 +1,7 @@
+.idea/
+migrations/
+logs/
+venv/
+*.csv
+*.xlsx
+__pycache__/
